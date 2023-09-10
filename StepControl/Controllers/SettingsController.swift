@@ -255,7 +255,7 @@ final class SettingsController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 24),
             titleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24),
             
-            container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/4),
+            container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/2.5),
             container.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 24),
             container.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: view.trailingAnchor),

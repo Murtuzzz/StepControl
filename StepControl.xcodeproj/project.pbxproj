@@ -28,6 +28,7 @@
 		B44EA93B2AA3B22C007AA1D1 /* DailyStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA93A2AA3B22C007AA1D1 /* DailyStepsView.swift */; };
 		B48A5FAF2AADA89300477D4F /* AchievementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FAE2AADA89300477D4F /* AchievementCell.swift */; };
 		B48A5FB12AADDC3100477D4F /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB02AADDC3100477D4F /* SectionHeaderView.swift */; };
+		B48A5FB32AAE218C00477D4F /* AchievementDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB22AAE218C00477D4F /* AchievementDescription.swift */; };
 		B4C4A99B2AA8FB05006FAB89 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */; };
 		B4C4A9A02AACF56B006FAB89 /* AchievementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4A99F2AACF56B006FAB89 /* AchievementsController.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		B44EA93A2AA3B22C007AA1D1 /* DailyStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStepsView.swift; sourceTree = "<group>"; };
 		B48A5FAE2AADA89300477D4F /* AchievementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCell.swift; sourceTree = "<group>"; };
 		B48A5FB02AADDC3100477D4F /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		B48A5FB22AAE218C00477D4F /* AchievementDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDescription.swift; sourceTree = "<group>"; };
 		B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B4C4A99F2AACF56B006FAB89 /* AchievementsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,14 +148,23 @@
 			path = DailyBarsView;
 			sourceTree = "<group>";
 		};
+		B48A5FB42AAE352D00477D4F /* Achievements */ = {
+			isa = PBXGroup;
+			children = (
+				B4C4A99F2AACF56B006FAB89 /* AchievementsController.swift */,
+				B48A5FAE2AADA89300477D4F /* AchievementCell.swift */,
+				B48A5FB22AAE218C00477D4F /* AchievementDescription.swift */,
+			);
+			path = Achievements;
+			sourceTree = "<group>";
+		};
 		B4C4A99E2AAB9A36006FAB89 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B48A5FB42AAE352D00477D4F /* Achievements */,
 				B44EA9092A9F7EF3007AA1D1 /* StepsController.swift */,
 				B44EA92F2AA160C6007AA1D1 /* SettingsController.swift */,
 				B44EA9332AA3A792007AA1D1 /* GrafficsController.swift */,
-				B4C4A99F2AACF56B006FAB89 /* AchievementsController.swift */,
-				B48A5FAE2AADA89300477D4F /* AchievementCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -254,6 +265,7 @@
 				B44EA9062A9F7EF3007AA1D1 /* AppDelegate.swift in Sources */,
 				B48A5FAF2AADA89300477D4F /* AchievementCell.swift in Sources */,
 				B44EA93B2AA3B22C007AA1D1 /* DailyStepsView.swift in Sources */,
+				B48A5FB32AAE218C00477D4F /* AchievementDescription.swift in Sources */,
 				B4C4A99B2AA8FB05006FAB89 /* UserSettings.swift in Sources */,
 				B44EA9372AA3B0A4007AA1D1 /* BarsView.swift in Sources */,
 				B44EA9082A9F7EF3007AA1D1 /* SceneDelegate.swift in Sources */,

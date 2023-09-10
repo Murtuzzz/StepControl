@@ -89,10 +89,14 @@ class Steps: UIViewController {
     func getSteps(completion: @escaping ([Date : Double], Error?) -> ()) {
         let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
         
+        let calendar = Calendar.current
         let now = Date()
-        let startOfDay = Calendar.current.startOfDay(for: now)
+
+        let desiredStartDate = calendar.date(byAdding: .day, value: -7, to: now)
+        let startOfDay = calendar.startOfDay(for: desiredStartDate ?? now)
         var interval = DateComponents()
         interval.day = 1
+
         
         let query = HKStatisticsCollectionQuery(quantityType: stepsQuantityType,
                                                 quantitySamplePredicate: nil,

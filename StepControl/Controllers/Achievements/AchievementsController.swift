@@ -11,12 +11,17 @@ struct AchievementData {
     struct Data {
         let image: String
         let isActive: Bool
+        let title: String
+        let subtitle: String
     }
     let title: String
     let items: [Data]
 }
 
 final class AchievementController: UIViewController, UIScrollViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    private var achCondArray:[Bool] = []
+    private var imageArray:[String] = []
     
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -108,18 +113,20 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
-        dataSource = [.init(title: "Daily Achievements", items: [.init(image: "trophy1", isActive: true),
-                                                                 .init(image: "trophy2", isActive: true),
-                                                                 .init(image: "trophy3", isActive: true),
-                                                                 .init(image: "trophy1", isActive: false),
-                                                                 .init(image: "trophy2", isActive: false),
-                                                                 .init(image: "trophy3", isActive: false)]),
-                      .init(title: "Monthly Achievements", items: [.init(image: "trophy1", isActive: true),
-                                                                               .init(image: "trophy2", isActive: true),
-                                                                               .init(image: "trophy3", isActive: true),
-                                                                               .init(image: "trophy1", isActive: false),
-                                                                               .init(image: "trophy2", isActive: false),
-                                                                               .init(image: "trophy3", isActive: false)])
+        dataSource = [.init(title: "Day Achievements", items: [.init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),
+                                                                 .init(image: "trophy2", isActive: true,title: "We get started", subtitle: "Walk 15 km in one day"),
+                                                                 .init(image: "trophy3", isActive: true,title: "Step-addicted", subtitle: "Walk 20 km in one day"),
+                                                               .init(image: "trophy1", isActive: false, title: "First Steps", subtitle: "Walk 10 km in one day"),
+                                                               .init(image: "trophy1", isActive: false, title: "First Steps", subtitle: "Walk 10 km in one day"),
+                                                               .init(image: "trophy1", isActive: false, title: "First Steps", subtitle: "Walk 10 km in one day"),]),
+                      .init(title: "Month Achievements", items: [.init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),
+                                                                 .init(image: "trophy2", isActive: true,title: "We get started", subtitle: "Walk 15 km in one day"),
+                                                                 .init(image: "trophy3", isActive: false,title: "Step-addicted", subtitle: "Walk 20 km in one day"),
+                                                                 .init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),
+                                                                 .init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),
+                                                                 .init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),]),
+                      
+                      
         ]
         
         //collectionView?.reloadData()
@@ -183,7 +190,7 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
             
             achievementsImageView.topAnchor.constraint(equalTo: container.safeAreaLayoutGuide.topAnchor, constant: 8),
             achievementsImageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            achievementsImageView.widthAnchor.constraint(equalToConstant: 88),
+            achievementsImageView.widthAnchor.constraint(equalToConstant: 56),
             achievementsImageView.heightAnchor.constraint(equalTo: achievementsImageView.widthAnchor),
             
             titleLabel.topAnchor.constraint(equalTo: achievementsImageView.bottomAnchor, constant: 8),
@@ -226,10 +233,22 @@ extension AchievementController {
         
         let items = dataSource[indexPath.section].items[indexPath.row]
         
+        print("TEST \(items.image)")
+        achCondArray.append(items.isActive)
+        imageArray.append(items.image)
+        
         cell.configure(with: items.image, isActive: items.isActive)
         
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let items = dataSource[indexPath.section].items[indexPath.row]
+
+        let vc = AchievementDescription(image: items.image, title: items.title, description: items.subtitle, isActive: items.isActive)
+
+        present(vc,animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

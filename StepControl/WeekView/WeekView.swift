@@ -51,10 +51,8 @@ final class WeekView: UIView {
         for i in 0...6 {
             if let date = calendar.date(byAdding: .day, value: -i, to: Date()) {
                 let formattedDate = dateFormatter.string(from: date)
-                //print(formattedDate)
                 let DayAndDate = formattedDate.split(separator: ",")
                 weekdays.append(DayAndDate)
-                //print("weekdays = \(DayAndDate)")
             }
         }
         

@@ -251,36 +251,46 @@ class StepsController: UIViewController, UIScrollViewDelegate {
     func getSteps() {
         Steps.shared.getSteps { [weak self] steps,error  in
             DispatchQueue.main.async {
-                print("GETSTEPS \(steps)")
+                var stepsArray: [Double] = []
+                var dateArray: [String] = []
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM"
+                let sorted_dict = steps.sorted { $0.key < $1.key }
+                
+                for (date, steps) in sorted_dict {
+                    stepsArray.append(steps)
+                    dateArray.append(dateFormatter.string(from:date))
+                  
+                }
+                
+                stepsArray.reverse()
+                dateArray.reverse()
+                
+                print("GETSTEPS \(stepsArray) GETDATA \(dateArray)")
                 var stepsString = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-                let stepsMultiplier = steps.map{$0 / 10000}
-                stepsString = steps.map {$0/1000}
+                let stepsMultiplier = stepsArray.map{$0 / 10000}
+                stepsString = stepsArray.map {$0/1000}
                 
                 var grafData: [BarView.Data] = []
                 
-                if steps.count == 7 {
-                    for i in stride(from: steps.count-2, through: 0, by: -1) {
-                        //print("weekDays = \(self!.weekDays)")
-                        grafData.append(.init(value: "\(Int(stepsString[i+1]))k", heightMultiplier: stepsMultiplier[i+1], title: self!.weekDays[i]))
-                    }
-                } else {
-                    for i in stride(from: steps.count-3, through: 0, by: -1) {
-                        //print("weekDays = \(self!.weekDays)")
-                        grafData.append(.init(value: "\(Int(stepsString[i+1]))k", heightMultiplier: stepsMultiplier[i+1], title: self!.weekDays[i]))
-                    }
+                
+                for i in stride(from: stepsArray.count-1, through: 1, by: -1) {
+                    grafData.append(.init(value: "\(Int(stepsString[i]))k", heightMultiplier: stepsMultiplier[i], title: dateArray[i]))
                 }
+                
                 
                 self!.histogramView.configurate(with: grafData)
                 
-                self!.steps = Int(steps[0])
-                self!.dailySteps = steps
-                self!.stepsLabel.text = "\(Int(steps[0]))"
-                let distant = (0.7 * steps[0])/1000
-                let calories = steps[0]/20
+                self!.steps = Int(stepsArray[0])
+                self!.dailySteps = stepsArray
+                self!.stepsLabel.text = "\(Int(stepsArray[0]))"
+                let distant = (0.7 * stepsArray[0])/1000
+                let calories = stepsArray[0]/20
                 self!.distantCountView.configure(with: "distant".uppercased(), andValue: "\(Int(distant)) km")
                 self!.caloriesCountView.configure(with: "calories".uppercased(),
                                                   andValue: "\(Int(calories)) kcal")
-                self!.configurate(with: Double(self!.target ?? 10000), progress: steps[0])
+                self!.configurate(with: Double(self!.target ?? 10000), progress: stepsArray[0])
                 
                 self!.notificationsCenter.center.removePendingNotificationRequests(withIdentifiers: ["targetNotification"])
                 

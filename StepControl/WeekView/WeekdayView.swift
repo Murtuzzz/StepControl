@@ -9,21 +9,21 @@ import UIKit
 
 extension WeekView {
     final class WeekdayView: UIView {
-
+        
         private let nameLabel: UILabel = {
             let lable = UILabel()
             lable.font = UIFont.systemFont(ofSize: 9)
             lable.textAlignment = .center
             return lable
         }()
-
+        
         private let dateLabel: UILabel = {
             let lable = UILabel()
             lable.font = UIFont.systemFont(ofSize: 15)
             lable.textAlignment = .center
             return lable
         }()
-
+        
         private let stackView: UIStackView = {
             let view = UIStackView()
             view.spacing = 3
@@ -40,21 +40,20 @@ extension WeekView {
             
             stackView.addArrangedSubview(nameLabel)
             stackView.addArrangedSubview(dateLabel)
-//            let gradientLayer = CAGradientLayer()
-//            gradientLayer.frame = bounds
-//
-//            let startColor = UIColor.red.cgColor
-//            let endColor = UIColor.blue.cgColor
-//            gradientLayer.colors = [startColor, endColor]
-//
-//            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-//            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
-//
-//            layer.insertSublayer(gradientLayer, at: 0)
-
-
-            constraints()
+            //            let gradientLayer = CAGradientLayer()
+            //            gradientLayer.frame = bounds
+            //
+            //            let startColor = UIColor.red.cgColor
+            //            let endColor = UIColor.blue.cgColor
+            //            gradientLayer.colors = [startColor, endColor]
+            //
+            //            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+            //            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+            //
+            //            layer.insertSublayer(gradientLayer, at: 0)
             
+            
+            constraints()
             
         }
         
@@ -63,7 +62,7 @@ extension WeekView {
         }
         
         func constraints() {
-        
+            
             NSLayoutConstraint.activate([
                 stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
                 stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -75,39 +74,46 @@ extension WeekView {
             let startOfWeek = Date().startOfWeek
             _ = startOfWeek.agoForward(to: 7)
             let day = Date.calendar.component(.day, from: Date())
-            //print("Day = \(day)")
-
+            let dateFormatter = DateFormatter()
             let isToday = String(day) == dayNum
             
             Steps.shared.getSteps { [weak self] steps,error  in
                 DispatchQueue.main.async {
                     
-                    var stepsArray: [Double] = []
                     
-                    for (date, steps) in steps {
-                        print("Date: \(date), steps: \(steps)")
-                        stepsArray.append(steps)
-                        //print("GETSTEPS week")
-                        //var stepsArray = steps
-                        stepsArray.reverse()
+                    //print(steps)
+                    var stepsArray: [Double] = []
+                    var dateArray: [String] = []
+                    let sorted_dict = steps.sorted { $0.key < $1.key }
+                    var stepsDict: [String:Double] = [:]
+                    
+                    for (date, steps) in sorted_dict {
+                        dateFormatter.dateFormat = "d"
+                        dateFormatter.string(from:date)
                         
-                        if index < stepsArray.count {
-                            if stepsArray[index] >= Double(UserSettings.target ?? "10000") ?? 99999 {
-                                self!.backgroundColor = .systemTeal
-                            } else {
-                                
-                                //self!.backgroundColor = .systemRed
+                        stepsArray.append(steps)
+                        dateArray.append(dateFormatter.string(from:date))
+                        stepsDict[(dateFormatter.string(from:date))] = steps
+                        //print(stepsDict)
+                        
+                        if dateArray.contains(dayNum) {
+                            if index < stepsArray.count-1 {
+                                if stepsDict[dayNum]! >= Double(UserSettings.target ?? "10000") ?? 99999 {
+                                    self!.backgroundColor = .systemTeal
+                                } else {
+
+                                }
                             }
                         }
                     }
                 }
             }
-
+            
             backgroundColor = isToday ? R.Colors.blue : R.Colors.darkBlue
-
+            
             nameLabel.text = name.uppercased()
             nameLabel.textColor = isToday ? .white : R.Colors.inactive
-
+            
             dateLabel.text = dayNum
             dateLabel.textColor = isToday ? .white : R.Colors.inactive
         }
