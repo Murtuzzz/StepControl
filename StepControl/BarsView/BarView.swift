@@ -27,10 +27,10 @@ final class BarView: UIView {
         label.font = R.Fonts.avenirBook(with: 13)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.shadowOffset = CGSize(width: 2, height: 2)
-        label.layer.shadowOpacity = 0.5
-        label.layer.shadowColor = UIColor.black.cgColor
-        label.layer.shadowRadius = 2
+//        label.layer.shadowOffset = CGSize(width: 2, height: 2)
+//        label.layer.shadowOpacity = 0.5
+//        label.layer.shadowColor = UIColor.black.cgColor
+//        label.layer.shadowRadius = 2
         return label
     }()
     
@@ -38,10 +38,10 @@ final class BarView: UIView {
         let view = UIView()
         view.backgroundColor = R.Colors.blue
         view.layer.cornerRadius = 2.5
-        view.layer.shadowOffset = CGSize(width: 2, height: 2)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowRadius = 2
+//        view.layer.shadowOffset = CGSize(width: 2, height: 2)
+//        view.layer.shadowOpacity = 0.5
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowRadius = 2
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -80,7 +80,14 @@ final class BarView: UIView {
        
         
         titleLabel.text = data.title
-        valueLabel.text = data.value 
+        //valueLabel.text = data.value
+        
+        if data.heightMultiplier <= 0.1 {
+            valueLabel.text = "<1k"
+        } else {
+            valueLabel.text = data.value
+        }
+        
         constraints()
         //themeChange()
     }

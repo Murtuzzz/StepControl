@@ -12,6 +12,7 @@ final class UserSettings {
     private enum SettingsKeys: String {
         case target
         case isNotificationsOn
+        case themeIndex
     }
     
     static var target: String? {
@@ -40,6 +41,22 @@ final class UserSettings {
             if let notifications = newValue {
                 print("value: \(notifications) was added to key \(key)")
                 defaults.set(notifications, forKey: key)
+            } else {
+                defaults.removeObject(forKey: key)
+            }
+        }
+    }
+    
+    static var themeIndex: Int! {
+        get {
+            return UserDefaults.standard.integer(forKey: SettingsKeys.themeIndex.rawValue)
+        } set {
+            
+            let defaults = UserDefaults.standard
+            let key = SettingsKeys.themeIndex.rawValue
+            if let theme = newValue {
+                print("value: \(theme) was added to key \(key)")
+                defaults.set(theme, forKey: key)
             } else {
                 defaults.removeObject(forKey: key)
             }

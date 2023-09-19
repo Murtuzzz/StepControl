@@ -23,7 +23,7 @@ final class AchievementCell: UICollectionViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = R.Colors.darkBlue
-        view.layer.cornerRadius = 55
+        view.layer.cornerRadius = 53
         return view
     }()
     

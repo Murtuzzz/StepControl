@@ -21,7 +21,7 @@ final class SectionHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        themeChange()
         addSubview(title)
         constraints()
     }
@@ -45,6 +45,14 @@ final class SectionHeaderView: UICollectionReusableView {
             title.bottomAnchor.constraint(equalTo: bottomAnchor),
             title.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    
+    func themeChange() {
+        if traitCollection.userInterfaceStyle == .light {
+            title.textColor = R.Colors.darkBlue
+        } else {
+            title.textColor = .white
+        }
     }
     
 }

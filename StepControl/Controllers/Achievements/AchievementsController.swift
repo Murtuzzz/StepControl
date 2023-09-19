@@ -10,18 +10,20 @@ import UIKit
 struct AchievementData {
     struct Data {
         let image: String
-        let isActive: Bool
+        var isActive: Bool
         let title: String
         let subtitle: String
     }
     let title: String
-    let items: [Data]
+    var items: [Data]
 }
 
 final class AchievementController: UIViewController, UIScrollViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     private var achCondArray:[Bool] = []
     private var imageArray:[String] = []
+    
+    private var achivCount = 0
     
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -64,7 +66,7 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
     private let achievementsImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(systemName: "trophy.fill")
+        view.image = UIImage(named: "starPurp")
         view.tintColor = R.Colors.orange
         view.contentMode = .scaleAspectFit
         return view
@@ -80,7 +82,7 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
     
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "4 out of 12"
+        label.text = "0 out of 9"
         label.font = R.Fonts.avenirBook(with: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -94,18 +96,20 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
         super.viewDidLoad()
         
         view.addSubview(backgroundImage)
-        view.addSubview(scrollView)
-        middleView.addSubview(container)
-        middleView.addSubview(achievementsImageView)
-        middleView.addSubview(titleLabel)
-        middleView.addSubview(subtitleLabel)
-        contentView.addSubview(middleView)
-        scrollView.addSubview(contentView)
         
-        scrollView.delegate = self
+        view.addSubview(container)
+        view.addSubview(achievementsImageView)
+        view.addSubview(titleLabel)
+        view.addSubview(subtitleLabel)
+
+        
+        
+        //scrollView.delegate = self
         
         constraints()
         collectionViewApperance()
+        themeChange()
+        //navigationController?.navigationBar.tintColor = R.Colors.darkBlue
         //view.backgroundColor = R.Colors.darkBlue
     }
     
@@ -113,23 +117,74 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
-        dataSource = [.init(title: "Day Achievements", items: [.init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),
-                                                                 .init(image: "trophy2", isActive: true,title: "We get started", subtitle: "Walk 15 km in one day"),
-                                                                 .init(image: "trophy3", isActive: true,title: "Step-addicted", subtitle: "Walk 20 km in one day"),
-                                                               .init(image: "trophy1", isActive: false, title: "First Steps", subtitle: "Walk 10 km in one day"),
-                                                               .init(image: "trophy1", isActive: false, title: "First Steps", subtitle: "Walk 10 km in one day"),
-                                                               .init(image: "trophy1", isActive: false, title: "First Steps", subtitle: "Walk 10 km in one day"),]),
-                      .init(title: "Month Achievements", items: [.init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),
-                                                                 .init(image: "trophy2", isActive: true,title: "We get started", subtitle: "Walk 15 km in one day"),
-                                                                 .init(image: "trophy3", isActive: false,title: "Step-addicted", subtitle: "Walk 20 km in one day"),
-                                                                 .init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),
-                                                                 .init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),
-                                                                 .init(image: "trophy1", isActive: true, title: "First Steps", subtitle: "Walk 10 km in one day"),]),
-                      
-                      
-        ]
+        
+        
+        dataSource = [.init(title: "Day Achievements", items: [.init(image: "thumbUp", isActive: false, title: "First Steps", subtitle: "Walk 10.000 steps in one day"),
+                                                               .init(image: "fire", isActive: false,title: "We get started", subtitle: "Walk 15.000 in one day"),
+                                                               .init(image: "rocket", isActive: false,title: "Step-addicted", subtitle: "Walk 20.000 in one day")]),
+//                      .init(title: "Week Achievements", items: [.init(image: "cup", isActive: false, title: "First Steps", subtitle: "Walk 35.000 steps in one month"),
+//                                                                 .init(image: "cupGold", isActive: false,title: "We get started", subtitle: "Walk 50.000 steps in one week"),
+//                                                                 .init(image: "cupColor", isActive: false,title: "Step-addicted", subtitle: "Walk 70.000 steps in one week")]),
+                      .init(title: "Month Achievements", items: [.init(image: "star", isActive: false, title: "First Steps", subtitle: "Walk 135.000 steps in one month"),
+                                                                 .init(image: "starGold", isActive: false,title: "We get started", subtitle: "Walk 235.000 steps in one month"),
+                                                                 .init(image: "starColor", isActive: false,title: "Step-addicted", subtitle: "Walk 300.000 steps in one month")]),]
         
         //collectionView?.reloadData()
+        
+        Steps.shared.getSteps { [weak self] steps,error  in
+            DispatchQueue.main.async {
+                
+                var stepsArray: [Double] = []
+                var dateArray: [String] = []
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM"
+                let sorted_dict = steps.sorted { $0.key < $1.key }
+                
+                for (date, steps) in sorted_dict {
+                    stepsArray.append(steps)
+                    dateArray.append(dateFormatter.string(from:date))
+                }
+                
+                for i in stepsArray {
+                    if i >= 10000 {
+                        self!.dataSource[0].items[0].isActive = true
+                        self!.collectionView?.reloadData()
+                        if i >= 15000 {
+                            self!.dataSource[0].items[1].isActive = true
+                            self!.collectionView?.reloadData()
+                            if i >= 20000 {
+                                self!.dataSource[0].items[2].isActive = true
+                                self!.collectionView?.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        AllStepsCount.shared.getSteps { [weak self] steps in
+            DispatchQueue.main.async {
+                
+                var stepsArray = steps[1]
+                stepsArray.reverse()
+                
+                for i in stepsArray {
+                    if Int(i)! >= 135000 {
+                        self!.dataSource[1].items[0].isActive = true
+                        self!.collectionView?.reloadData()
+                        if Int(i)! >= 235000 {
+                            self!.dataSource[1].items[1].isActive = true
+                            self!.collectionView?.reloadData()
+                            if Int(i)! >= 300000 {
+                                self!.dataSource[1].items[2].isActive = true
+                                self!.collectionView?.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -148,7 +203,7 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
         collectionView.isScrollEnabled = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        middleView.addSubview(collectionView)
+        view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
                    collectionView.topAnchor.constraint(equalTo: container.bottomAnchor, constant: 8),
@@ -164,28 +219,28 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
         NSLayoutConstraint.activate([
             
             //MARK: - ScrollViewConstraints
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 832),//1128
-            
-            middleView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            middleView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            middleView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            middleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
+//            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//
+//            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+//            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+//            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+//            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+//            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+//            contentView.heightAnchor.constraint(equalToConstant: 832),//1128
+//
+//            middleView.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            middleView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+//            middleView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+//            middleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+//
             //MARK: - OtherConstraints
             
-            container.topAnchor.constraint(equalTo: middleView.topAnchor),
-            container.leadingAnchor.constraint(equalTo: middleView.leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: middleView.trailingAnchor),
+            container.topAnchor.constraint(equalTo: view.topAnchor),
+            container.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             container.bottomAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 32),
             
             achievementsImageView.topAnchor.constraint(equalTo: container.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -194,10 +249,10 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
             achievementsImageView.heightAnchor.constraint(equalTo: achievementsImageView.widthAnchor),
             
             titleLabel.topAnchor.constraint(equalTo: achievementsImageView.bottomAnchor, constant: 8),
-            titleLabel.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            subtitleLabel.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
+            subtitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -239,7 +294,19 @@ extension AchievementController {
         
         cell.configure(with: items.image, isActive: items.isActive)
         
+        if items.isActive == true {
+            achivCount += 1
+            subtitleLabel.text = "\(achivCount) out of 6"
+        }
         
+        if achivCount >= 3 && achivCount < 6 {
+            achievementsImageView.image = UIImage(named: "trophy1")
+        } else if achivCount >= 6 {
+            achievementsImageView.image = UIImage(named: "trophy2")
+        } else if achivCount == 9 {
+            achievementsImageView.image = UIImage(named: "trophy3")
+        }
+            
         return cell
     }
     
@@ -262,5 +329,37 @@ extension AchievementController {
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 56)
+    }
+    
+    func themeChange() {
+        if traitCollection.userInterfaceStyle == .light {
+            titleLabel.textColor = .white
+            subtitleLabel.textColor = .white
+            //container.backgroundColor = R.Colors.blue
+            navigationItem.leftBarButtonItem?.tintColor = R.Colors.darkBlue
+            navigationItem.rightBarButtonItem?.tintColor = R.Colors.darkBlue
+            navigationController?.navigationBar.tintColor = .white
+            if let navigationBar = self.navigationController?.navigationBar {
+                // Изменение цвета заголовка
+                let attributes = [NSAttributedString.Key.foregroundColor: R.Colors.darkBlue]
+                navigationBar.titleTextAttributes = attributes
+                view.backgroundColor = R.Colors.inactive
+                backgroundImage.image = nil
+            } else {
+                titleLabel.textColor = R.Colors.darkBlue
+                subtitleLabel.textColor = R.Colors.darkBlue
+                navigationItem.leftBarButtonItem?.tintColor = .white
+                navigationItem.rightBarButtonItem?.tintColor = .white
+                navigationController?.navigationBar.tintColor = .white
+                //view.backgroundColor = .white
+                if let navigationBar = self.navigationController?.navigationBar {
+                    // Изменение цвета заголовка
+                    let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+                    navigationBar.titleTextAttributes = attributes
+                    
+                    backgroundImage.image = UIImage(named:"StepsBg")
+                }
+            }
+        }
     }
 }

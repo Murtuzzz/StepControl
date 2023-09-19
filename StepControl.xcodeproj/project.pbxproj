@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B446B3912AB8BA410046BDD2 /* HourlyStepsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446B3902AB8BA410046BDD2 /* HourlyStepsCount.swift */; };
 		B44EA9062A9F7EF3007AA1D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9052A9F7EF3007AA1D1 /* AppDelegate.swift */; };
 		B44EA9082A9F7EF3007AA1D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9072A9F7EF3007AA1D1 /* SceneDelegate.swift */; };
 		B44EA90A2A9F7EF3007AA1D1 /* StepsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9092A9F7EF3007AA1D1 /* StepsController.swift */; };
@@ -29,11 +30,18 @@
 		B48A5FAF2AADA89300477D4F /* AchievementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FAE2AADA89300477D4F /* AchievementCell.swift */; };
 		B48A5FB12AADDC3100477D4F /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB02AADDC3100477D4F /* SectionHeaderView.swift */; };
 		B48A5FB32AAE218C00477D4F /* AchievementDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB22AAE218C00477D4F /* AchievementDescription.swift */; };
+		B48A5FB62AAF4AA400477D4F /* AllStepsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB52AAF4AA400477D4F /* AllStepsCount.swift */; };
+		B48A5FB82AB0BDBF00477D4F /* MonthlyGraf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB72AB0BDBF00477D4F /* MonthlyGraf.swift */; };
+		B48A5FBA2AB2FAE800477D4F /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB92AB2FAE800477D4F /* ChartsView.swift */; };
+		B48A5FBC2AB3122100477D4F /* YAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FBB2AB3122100477D4F /* YAxisView.swift */; };
+		B48A5FBF2AB3198B00477D4F /* XAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FBE2AB3198B00477D4F /* XAxisView.swift */; };
+		B48A5FC12AB32CA600477D4F /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FC02AB32CA600477D4F /* ChartView.swift */; };
 		B4C4A99B2AA8FB05006FAB89 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */; };
 		B4C4A9A02AACF56B006FAB89 /* AchievementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4A99F2AACF56B006FAB89 /* AchievementsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B446B3902AB8BA410046BDD2 /* HourlyStepsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyStepsCount.swift; sourceTree = "<group>"; };
 		B44EA9022A9F7EF3007AA1D1 /* StepControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StepControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44EA9052A9F7EF3007AA1D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B44EA9072A9F7EF3007AA1D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +67,12 @@
 		B48A5FAE2AADA89300477D4F /* AchievementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCell.swift; sourceTree = "<group>"; };
 		B48A5FB02AADDC3100477D4F /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		B48A5FB22AAE218C00477D4F /* AchievementDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDescription.swift; sourceTree = "<group>"; };
+		B48A5FB52AAF4AA400477D4F /* AllStepsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStepsCount.swift; sourceTree = "<group>"; };
+		B48A5FB72AB0BDBF00477D4F /* MonthlyGraf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyGraf.swift; sourceTree = "<group>"; };
+		B48A5FB92AB2FAE800477D4F /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
+		B48A5FBB2AB3122100477D4F /* YAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisView.swift; sourceTree = "<group>"; };
+		B48A5FBE2AB3198B00477D4F /* XAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAxisView.swift; sourceTree = "<group>"; };
+		B48A5FC02AB32CA600477D4F /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B4C4A99F2AACF56B006FAB89 /* AchievementsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,9 +107,10 @@
 		B44EA9042A9F7EF3007AA1D1 /* StepControl */ = {
 			isa = PBXGroup;
 			children = (
+				B48A5FBD2AB312BC00477D4F /* MonthlyGraf */,
 				B4C4A9A12AACF59C006FAB89 /* Views */,
 				B4C4A99E2AAB9A36006FAB89 /* Controllers */,
-				B44EA9352AA3B073007AA1D1 /* DailyBarsView */,
+				B44EA9352AA3B073007AA1D1 /* BarsView */,
 				B44EA92E2AA14D70007AA1D1 /* WeekView */,
 				B44EA92D2AA14D5A007AA1D1 /* Resources */,
 				B44EA92C2AA14D47007AA1D1 /* System */,
@@ -120,11 +135,13 @@
 		B44EA92D2AA14D5A007AA1D1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B48A5FB52AAF4AA400477D4F /* AllStepsCount.swift */,
 				B44EA9292AA11BF4007AA1D1 /* StepsCount.swift */,
 				B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */,
 				B44EA91D2AA082AE007AA1D1 /* Ext.swift */,
 				B44EA91F2AA093AF007AA1D1 /* Colors.swift */,
 				B44EA9212AA093B6007AA1D1 /* R.swift */,
+				B446B3902AB8BA410046BDD2 /* HourlyStepsCount.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -138,14 +155,14 @@
 			path = WeekView;
 			sourceTree = "<group>";
 		};
-		B44EA9352AA3B073007AA1D1 /* DailyBarsView */ = {
+		B44EA9352AA3B073007AA1D1 /* BarsView */ = {
 			isa = PBXGroup;
 			children = (
 				B44EA9362AA3B0A4007AA1D1 /* BarsView.swift */,
 				B44EA9382AA3B155007AA1D1 /* BarView.swift */,
 				B44EA93A2AA3B22C007AA1D1 /* DailyStepsView.swift */,
 			);
-			path = DailyBarsView;
+			path = BarsView;
 			sourceTree = "<group>";
 		};
 		B48A5FB42AAE352D00477D4F /* Achievements */ = {
@@ -156,6 +173,18 @@
 				B48A5FB22AAE218C00477D4F /* AchievementDescription.swift */,
 			);
 			path = Achievements;
+			sourceTree = "<group>";
+		};
+		B48A5FBD2AB312BC00477D4F /* MonthlyGraf */ = {
+			isa = PBXGroup;
+			children = (
+				B48A5FB72AB0BDBF00477D4F /* MonthlyGraf.swift */,
+				B48A5FB92AB2FAE800477D4F /* ChartsView.swift */,
+				B48A5FBB2AB3122100477D4F /* YAxisView.swift */,
+				B48A5FBE2AB3198B00477D4F /* XAxisView.swift */,
+				B48A5FC02AB32CA600477D4F /* ChartView.swift */,
+			);
+			path = MonthlyGraf;
 			sourceTree = "<group>";
 		};
 		B4C4A99E2AAB9A36006FAB89 /* Controllers */ = {
@@ -252,8 +281,11 @@
 				B44EA9302AA160C6007AA1D1 /* SettingsController.swift in Sources */,
 				B44EA91A2AA08251007AA1D1 /* WeekView.swift in Sources */,
 				B44EA90A2A9F7EF3007AA1D1 /* StepsController.swift in Sources */,
+				B446B3912AB8BA410046BDD2 /* HourlyStepsCount.swift in Sources */,
+				B48A5FC12AB32CA600477D4F /* ChartView.swift in Sources */,
 				B44EA9262AA10D3D007AA1D1 /* CountView.swift in Sources */,
 				B48A5FB12AADDC3100477D4F /* SectionHeaderView.swift in Sources */,
+				B48A5FBF2AB3198B00477D4F /* XAxisView.swift in Sources */,
 				B44EA91C2AA08262007AA1D1 /* WeekdayView.swift in Sources */,
 				B44EA9242AA0E134007AA1D1 /* ProgressView.swift in Sources */,
 				B44EA92A2AA11BF4007AA1D1 /* StepsCount.swift in Sources */,
@@ -262,15 +294,19 @@
 				B44EA9202AA093AF007AA1D1 /* Colors.swift in Sources */,
 				B4C4A9A02AACF56B006FAB89 /* AchievementsController.swift in Sources */,
 				B44EA9222AA093B6007AA1D1 /* R.swift in Sources */,
+				B48A5FBC2AB3122100477D4F /* YAxisView.swift in Sources */,
 				B44EA9062A9F7EF3007AA1D1 /* AppDelegate.swift in Sources */,
 				B48A5FAF2AADA89300477D4F /* AchievementCell.swift in Sources */,
 				B44EA93B2AA3B22C007AA1D1 /* DailyStepsView.swift in Sources */,
 				B48A5FB32AAE218C00477D4F /* AchievementDescription.swift in Sources */,
+				B48A5FBA2AB2FAE800477D4F /* ChartsView.swift in Sources */,
 				B4C4A99B2AA8FB05006FAB89 /* UserSettings.swift in Sources */,
 				B44EA9372AA3B0A4007AA1D1 /* BarsView.swift in Sources */,
 				B44EA9082A9F7EF3007AA1D1 /* SceneDelegate.swift in Sources */,
 				B44EA9342AA3A792007AA1D1 /* GrafficsController.swift in Sources */,
+				B48A5FB62AAF4AA400477D4F /* AllStepsCount.swift in Sources */,
 				B44EA91E2AA082AE007AA1D1 /* Ext.swift in Sources */,
+				B48A5FB82AB0BDBF00477D4F /* MonthlyGraf.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

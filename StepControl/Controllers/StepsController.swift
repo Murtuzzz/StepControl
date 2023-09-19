@@ -12,6 +12,8 @@ class StepsController: UIViewController, UIScrollViewDelegate {
     
     let notificationsCenter = AppDelegate()
     
+    let hourlySteps = HourlyStepsCount()
+    
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.backgroundColor = .clear
@@ -44,7 +46,7 @@ class StepsController: UIViewController, UIScrollViewDelegate {
     
     private var weekDays: [String] = []
     
-    private let histogramView = DailyStepsView()
+    private let histogramView = DailyStepsView(cornerRadius: 20)
     
     var target = Int(UserSettings.target ?? "10000")
     var steps = 0
@@ -87,7 +89,9 @@ class StepsController: UIViewController, UIScrollViewDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = R.Fonts.avenirBook(with: 48)
         label.textColor = R.Colors.inactive
-        label.text = "9345"
+        label.text = "0000"
+        label.adjustsFontForContentSizeCategory = true
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -98,6 +102,8 @@ class StepsController: UIViewController, UIScrollViewDelegate {
         label.font = R.Fonts.avenirBook(with: 24)
         label.textColor = R.Colors.blue
         label.text = "/\(UserSettings.target ?? "10000")"
+        label.adjustsFontForContentSizeCategory = true
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -127,7 +133,7 @@ class StepsController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        themeChange()
     }
 
     override func viewDidLoad() {
@@ -150,6 +156,12 @@ class StepsController: UIViewController, UIScrollViewDelegate {
         
         scrollView.delegate = self
         
+        HourlyStepsCount.shared.getSteps { [weak self] steps  in
+            DispatchQueue.main.async {
+                print("Hourly = \(steps)")
+            }
+        }
+        
         weekDaysApperance()
         print("Target = \(target)")
 //        UserSettings.target = "\(self.target)"
@@ -160,13 +172,14 @@ class StepsController: UIViewController, UIScrollViewDelegate {
         
         self.configurate(with: Double(self.target ?? 10000), progress: Double(steps))
         
+        hourlySteps.getAuthorization()
         stepsCount.getAuthorization()
         getSteps()
         
         caloriesCountView.configure(with: "calories".uppercased(),
-                                               andValue: "345 kcal")
+                                               andValue: "000 kcal")
         distantCountView.configure(with: "distant".uppercased(),
-                                              andValue: "12 km")
+                                              andValue: "0 km")
         [
             caloriesCountView,
             bottomSeparatorView,
@@ -275,24 +288,31 @@ class StepsController: UIViewController, UIScrollViewDelegate {
                 var grafData: [BarView.Data] = []
                 
                 
-                for i in stride(from: stepsArray.count-1, through: 1, by: -1) {
+                for i in stride(from: stepsArray.count-2, through: 1, by: -1) {
                     grafData.append(.init(value: "\(Int(stepsString[i]))k", heightMultiplier: stepsMultiplier[i], title: dateArray[i]))
                 }
                 
                 
                 self!.histogramView.configurate(with: grafData)
                 
-                self!.steps = Int(stepsArray[0])
-                self!.dailySteps = stepsArray
-                self!.stepsLabel.text = "\(Int(stepsArray[0]))"
-                let distant = (0.7 * stepsArray[0])/1000
-                let calories = stepsArray[0]/20
-                self!.distantCountView.configure(with: "distant".uppercased(), andValue: "\(Int(distant)) km")
-                self!.caloriesCountView.configure(with: "calories".uppercased(),
-                                                  andValue: "\(Int(calories)) kcal")
-                self!.configurate(with: Double(self!.target ?? 10000), progress: stepsArray[0])
-                
-                self!.notificationsCenter.center.removePendingNotificationRequests(withIdentifiers: ["targetNotification"])
+                if stepsArray.count > 0 {
+                    
+                    self!.steps = Int(stepsArray[0] )
+                    print(self!.steps)
+                    self!.dailySteps = stepsArray
+                    self!.stepsLabel.text = "\(Int(stepsArray[0]))"
+                    let distant = (0.7 * stepsArray[0])/1000
+                    let calories = stepsArray[0]/20
+                    self!.distantCountView.configure(with: "distant".uppercased(), andValue: "\(Int(distant)) km")
+                    self!.caloriesCountView.configure(with: "calories".uppercased(),
+                                                      andValue: "\(Int(calories)) kcal")
+                    self!.configurate(with: Double(self!.target ?? 10000), progress: stepsArray[0])
+                    
+                }
+                if self!.target ?? 10000 > self!.steps {
+                    
+                    self!.notificationsCenter.createNotification(title: "Поднажмите", body: "Шагов до цели: \((self!.target ?? 10000) - self!.steps)")
+                }
                 
                 //if UserSettings.notifications == true {
 //                } else {
@@ -305,6 +325,7 @@ class StepsController: UIViewController, UIScrollViewDelegate {
     func notifications() {
         print("Notifications = \(UserSettings.notifications!)")
         if self.target ?? 10000 > self.steps {
+            
             self.notificationsCenter.createNotification(title: "Поднажмите", body: "Шагов до цели: \((self.target ?? 10000) - self.steps)")
         }
     }
@@ -321,6 +342,19 @@ class StepsController: UIViewController, UIScrollViewDelegate {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         histogramView.translatesAutoresizingMaskIntoConstraints = false
         
+        print("Height - \(view.bounds.height)")
+        
+        if view.bounds.height == 667 {
+            
+            bottomStackView.removeConstraint(bottomStackView.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: view.bounds.height/15))
+            progressView.removeConstraint(progressView.topAnchor.constraint(equalTo: middleView.safeAreaLayoutGuide.topAnchor, constant: view.bounds.height / 26))
+        
+            NSLayoutConstraint.activate([
+                bottomStackView.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 16),
+                progressView.topAnchor.constraint(equalTo: middleView.safeAreaLayoutGuide.topAnchor, constant: 8)
+                                        ])
+        }
+        
         NSLayoutConstraint.activate([
             
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -333,7 +367,7 @@ class StepsController: UIViewController, UIScrollViewDelegate {
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 832),//1128
+            contentView.heightAnchor.constraint(equalToConstant: view.bounds.height),
             
             middleView.topAnchor.constraint(equalTo: contentView.topAnchor),
             middleView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
@@ -348,19 +382,19 @@ class StepsController: UIViewController, UIScrollViewDelegate {
             histogramView.topAnchor.constraint(equalTo: weekView.bottomAnchor, constant: 8),
             histogramView.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
             histogramView.widthAnchor.constraint(equalToConstant: view.bounds.width - 48),
-            histogramView.heightAnchor.constraint(equalToConstant: 200),
+            histogramView.heightAnchor.constraint(equalToConstant: view.bounds.height / 4),
             
             stepsButton.centerXAnchor.constraint(equalTo: progressView.centerXAnchor),
             stepsButton.centerYAnchor.constraint(equalTo: progressView.centerYAnchor),
             stepsButton.widthAnchor.constraint(equalTo: progressView.widthAnchor),
             stepsButton.heightAnchor.constraint(equalTo: progressView.heightAnchor),
             
-            progressView.topAnchor.constraint(equalTo: middleView.safeAreaLayoutGuide.topAnchor, constant: 32),
+            progressView.topAnchor.constraint(equalTo: middleView.safeAreaLayoutGuide.topAnchor, constant: view.bounds.height / 26),
             progressView.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 55),
             progressView.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -55),
             progressView.heightAnchor.constraint(equalTo: progressView.widthAnchor),
             
-            bottomStackView.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 56),
+            bottomStackView.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: view.bounds.height/15),
             bottomStackView.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
             bottomStackView.heightAnchor.constraint(equalToConstant: 35),
             bottomStackView.widthAnchor.constraint(equalToConstant: 208),
@@ -400,6 +434,7 @@ extension StepsController {
             stepsImageView.tintColor = R.Colors.darkBlue
             navigationItem.leftBarButtonItem?.tintColor = R.Colors.darkBlue
             navigationItem.rightBarButtonItem?.tintColor = R.Colors.darkBlue
+            navigationController?.navigationBar.tintColor = R.Colors.darkBlue  
             if let navigationBar = self.navigationController?.navigationBar {
                 // Изменение цвета заголовка
                 let attributes = [NSAttributedString.Key.foregroundColor: R.Colors.darkBlue] // Здесь вы можете указать требуемый цвет

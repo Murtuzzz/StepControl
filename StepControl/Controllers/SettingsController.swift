@@ -26,7 +26,7 @@ final class SettingsController: UIViewController {
     
     private let segmentedControl: UISegmentedControl = {
         let segment = UISegmentedControl(items: ["Dark","Light","System"])
-        segment.selectedSegmentIndex = 0
+        segment.selectedSegmentIndex = UserSettings.themeIndex ?? 0
         segment.clipsToBounds = true
         segment.layer.masksToBounds = true
         segment.layer.cornerRadius = 50
@@ -47,13 +47,13 @@ final class SettingsController: UIViewController {
         return view
     }()
     
-    private let notificationsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Turn-on target notifications"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = R.Fonts.avenirBook(with: 18)
-        return label
+    private let notificationImage: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(systemName: "bell")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.tintColor = R.Colors.darkBlue
+        view.contentMode = .scaleAspectFit
+        return view
     }()
     
     private let targetTextField: CustomTextField = {
@@ -141,7 +141,7 @@ final class SettingsController: UIViewController {
         view.addSubview(closeButton)
         view.addSubview(targetView)
         view.addSubview(notificationsSwitch)
-        view.addSubview(notificationsLabel)
+        view.addSubview(notificationImage)
         view.addSubview(themeLabel)
         view.addSubview(segmentedControl)
         navigationController?.navigationBar.tintColor = .cyan
@@ -169,11 +169,15 @@ final class SettingsController: UIViewController {
     
     @objc
     func segmentedControlAction() {
+        showAlert(title: "Success!", message: "To change theme please reload the app")
         if segmentedControl.selectedSegmentIndex == 0 {
+            UserSettings.themeIndex = 0
             changeTheme(to: .dark)
         } else if segmentedControl.selectedSegmentIndex == 1 {
+            UserSettings.themeIndex = 1
             changeTheme(to: .light)
         } else {
+            UserSettings.themeIndex = 2
             changeTheme(to: .unspecified)
         }
     }
@@ -182,7 +186,12 @@ final class SettingsController: UIViewController {
     private func switchAction() {
         isNotificationsOn.toggle()
         UserSettings.notifications = isNotificationsOn
-        steps.notifications()
+        if isNotificationsOn == true {
+            showAlert(title: "Success", message: "Target notifications ON 🔔")
+        } else {
+            showAlert(title: "Succes", message: "Target notifications OFF 🔕")
+        }
+        steps.getSteps()
     }
     
     @objc
@@ -221,12 +230,12 @@ final class SettingsController: UIViewController {
             segmentedControl.heightAnchor.constraint(equalToConstant: 72),
             segmentedControl.widthAnchor.constraint(equalToConstant: view.bounds.width - 48),
             
-            notificationsLabel.centerYAnchor.constraint(equalTo: notificationsSwitch.centerYAnchor),
-            notificationsLabel.leadingAnchor.constraint(equalTo: notificationsSwitch.trailingAnchor, constant:16),
-            notificationsLabel.heightAnchor.constraint(equalToConstant: notificationsSwitch.bounds.height),
+            notificationImage.centerYAnchor.constraint(equalTo: notificationsSwitch.centerYAnchor),
+            notificationImage.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant:48),
+            notificationImage.heightAnchor.constraint(equalToConstant: notificationsSwitch.bounds.height),
             
-            notificationsSwitch.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 56),
-            notificationsSwitch.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24),
+            notificationsSwitch.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            notificationsSwitch.leadingAnchor.constraint(equalTo: notificationImage.trailingAnchor, constant: 16),
 
             saveTargetButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
             saveTargetButton.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -24),
@@ -255,7 +264,8 @@ final class SettingsController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 24),
             titleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24),
             
-            container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/2.5),
+//            container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/3.2),
+            container.heightAnchor.constraint(equalToConstant: view.bounds.height/2 + 24),
             container.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 24),
             container.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: view.trailingAnchor),

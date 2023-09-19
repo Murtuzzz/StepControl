@@ -16,7 +16,6 @@ final class DailyStepsView: UIView {
         view.backgroundColor = R.Colors.darkBlue
         view.layer.borderColor = R.Colors.darkBlue.cgColor
         view.layer.borderWidth = 1
-        view.layer.cornerRadius = 20
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -43,8 +42,10 @@ final class DailyStepsView: UIView {
     }()
     
     
-    override init(frame: CGRect) {
+    init(cornerRadius: Int) {
+        contentView.layer.cornerRadius = CGFloat(cornerRadius)
         super.init(frame: .zero)
+        
         
         addSubview(contentView)
         

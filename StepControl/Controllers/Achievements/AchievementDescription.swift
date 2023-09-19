@@ -23,6 +23,9 @@ final class AchievementDescription: UIViewController {
         label.textColor = R.Colors.orange
         label.font = R.Fonts.avenirBook(with: 36)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.adjustsFontForContentSizeCategory = true
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -55,7 +58,7 @@ final class AchievementDescription: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = R.Colors.blue
-        view.layer.cornerRadius = 70
+        view.layer.cornerRadius = 65
         return view
     }()
     
@@ -107,10 +110,10 @@ final class AchievementDescription: UIViewController {
             
             imageViewBackground.centerXAnchor.constraint(equalTo: container.centerXAnchor),
             imageViewBackground.topAnchor.constraint(equalTo: container.topAnchor, constant: 64),
-            imageViewBackground.heightAnchor.constraint(equalToConstant: 144),
+            imageViewBackground.heightAnchor.constraint(equalToConstant: view.bounds.width / 3),//144
             imageViewBackground.widthAnchor.constraint(equalTo: imageViewBackground.heightAnchor),
             
-            container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/2.5),
+            container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/2.1),
             container.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 24),
             container.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: view.trailingAnchor),
