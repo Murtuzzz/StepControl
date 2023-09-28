@@ -27,10 +27,6 @@ final class BarView: UIView {
         label.font = R.Fonts.avenirBook(with: 13)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.layer.shadowOffset = CGSize(width: 2, height: 2)
-//        label.layer.shadowOpacity = 0.5
-//        label.layer.shadowColor = UIColor.black.cgColor
-//        label.layer.shadowRadius = 2
         return label
     }()
     
@@ -38,10 +34,6 @@ final class BarView: UIView {
         let view = UIView()
         view.backgroundColor = R.Colors.blue
         view.layer.cornerRadius = 2.5
-//        view.layer.shadowOffset = CGSize(width: 2, height: 2)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowRadius = 2
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -53,18 +45,6 @@ final class BarView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private func addGradient(color1: UIColor, color2: UIColor) {
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = bounds
-        gradientLayer.colors = [UIColor.red.cgColor, UIColor.blue.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-        barView.layer.addSublayer(gradientLayer)
-
-
-    }
     
     init(data: Data) {
         self.heightMultiplier = 0.0

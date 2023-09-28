@@ -10,6 +10,8 @@ import UIKit
 extension StepsController {
     final class CountView: UIView {
         
+        private var theme = ["dark","light","system"]
+        
         private let stackView: UIStackView = {
             let view = UIStackView()
             view.axis = .vertical
@@ -73,12 +75,14 @@ extension StepsController {
         }
         
         func themeChange() {
-            if traitCollection.userInterfaceStyle == .light {
+            if theme[UserSettings.themeIndex] == "light" {
                 percentLabel.textColor = R.Colors.darkBlue
                 subtitleLabel.textColor = R.Colors.blue
-            } else {
+            } else if theme[UserSettings.themeIndex] == "dark" {
                 percentLabel.textColor = R.Colors.inactive
                 subtitleLabel.textColor = R.Colors.blue
+            } else {
+                
             }
         }
     }

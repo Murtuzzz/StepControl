@@ -76,7 +76,6 @@ final class DailyStepsView: UIView {
             separatorOne.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 16),
             separatorOne.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -16),
             separatorOne.heightAnchor.constraint(equalToConstant: 1),
-            separatorOne.widthAnchor.constraint(equalToConstant: contentView.bounds.width - 16),
             
             separatorTwo.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             separatorTwo.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),

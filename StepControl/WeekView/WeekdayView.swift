@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension WeekView {
+extension WeekCell {
     final class WeekdayView: UIView {
         
         private let nameLabel: UILabel = {
@@ -40,17 +40,6 @@ extension WeekView {
             
             stackView.addArrangedSubview(nameLabel)
             stackView.addArrangedSubview(dateLabel)
-            //            let gradientLayer = CAGradientLayer()
-            //            gradientLayer.frame = bounds
-            //
-            //            let startColor = UIColor.red.cgColor
-            //            let endColor = UIColor.blue.cgColor
-            //            gradientLayer.colors = [startColor, endColor]
-            //
-            //            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-            //            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
-            //
-            //            layer.insertSublayer(gradientLayer, at: 0)
             
             
             constraints()

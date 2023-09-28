@@ -61,9 +61,9 @@ final class WeekView: UIView {
         for i in 0...6 {
             let dayNum = (String(weekdays[i][1]))
             let dayName = (String(weekdays[i][0]))
-            let view = WeekdayView()
-            view.configure(with: dayNum, and: dayName, index: i)
-            stackView.addArrangedSubview(view)
+            //let view = WeekdayView()
+            //view.configure(with: dayNum, and: dayName, index: i)
+            //stackView.addArrangedSubview(view)
         }
     }
 }

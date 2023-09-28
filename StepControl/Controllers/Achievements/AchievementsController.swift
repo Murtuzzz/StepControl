@@ -82,7 +82,7 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
     
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "0 out of 9"
+        label.text = "0 out of 6"
         label.font = R.Fonts.avenirBook(with: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -101,8 +101,6 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
         view.addSubview(achievementsImageView)
         view.addSubview(titleLabel)
         view.addSubview(subtitleLabel)
-
-        
         
         //scrollView.delegate = self
         
@@ -288,7 +286,6 @@ extension AchievementController {
         
         let items = dataSource[indexPath.section].items[indexPath.row]
         
-        print("TEST \(items.image)")
         achCondArray.append(items.isActive)
         imageArray.append(items.image)
         
@@ -332,7 +329,7 @@ extension AchievementController {
     }
     
     func themeChange() {
-        if traitCollection.userInterfaceStyle == .light {
+        if UserSettings.themeIndex == 1 {
             titleLabel.textColor = .white
             subtitleLabel.textColor = .white
             //container.backgroundColor = R.Colors.blue
@@ -345,7 +342,7 @@ extension AchievementController {
                 navigationBar.titleTextAttributes = attributes
                 view.backgroundColor = R.Colors.inactive
                 backgroundImage.image = nil
-            } else {
+            } else if UserSettings.themeIndex == 0 {
                 titleLabel.textColor = R.Colors.darkBlue
                 subtitleLabel.textColor = R.Colors.darkBlue
                 navigationItem.leftBarButtonItem?.tintColor = .white
@@ -358,6 +355,8 @@ extension AchievementController {
                     navigationBar.titleTextAttributes = attributes
                     
                     backgroundImage.image = UIImage(named:"StepsBg")
+                } else {
+                    
                 }
             }
         }

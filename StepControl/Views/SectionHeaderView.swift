@@ -48,10 +48,12 @@ final class SectionHeaderView: UICollectionReusableView {
     }
     
     func themeChange() {
-        if traitCollection.userInterfaceStyle == .light {
+        if UserSettings.themeIndex == 1 {
             title.textColor = R.Colors.darkBlue
-        } else {
+        } else if UserSettings.themeIndex == 0 {
             title.textColor = .white
+        } else {
+            
         }
     }
     

@@ -15,20 +15,29 @@ final class ProgressView: UIView {
         //backgroundColor = .cyan
         //let circleFrame = UIScreen.main.bounds.width - (15 + 40) * 2
         let circleFrame = UIScreen.main.bounds.height
-        let radius = circleFrame / 5.9
-        print("Radius - \(radius)")
+        let radius: CGFloat?
+        
+        if UIScreen.main.bounds.height == 667 {
+            radius = circleFrame / 5.5
+        } else {
+            radius = circleFrame / 5.9
+        }
+        
+        print("Radius - \(radius!)")
         print(UIScreen.main.bounds.height)
         let center: CGPoint!
+        
         if UIScreen.main.bounds.height == 667 {
-            center = CGPoint(x: bounds.width/2, y: bounds.height/2)
+            center = CGPoint(x: radius! + 10, y: radius! + 8)
         } else {
-            center = CGPoint(x: radius, y: radius)
+            center = CGPoint(x: radius!, y: radius!)
         }
+        
         let startAngle = -CGFloat.pi * 3/6
         let endAngle = CGFloat.pi * 2
         
         let circlePath = UIBezierPath(arcCenter: center,
-                                      radius: radius,
+                                      radius: radius!,
                                       startAngle: startAngle,
                                       endAngle: endAngle,
                                       clockwise: true)

@@ -23,7 +23,6 @@ final class AchievementDescription: UIViewController {
         label.textColor = R.Colors.orange
         label.font = R.Fonts.avenirBook(with: 36)
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         return label

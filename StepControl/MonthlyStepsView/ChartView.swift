@@ -101,7 +101,13 @@ private extension ChartView {
         
         let points = valuePoints.map {
             let x = bounds.width / CGFloat(valuePoints.count - 1) * $0.x
-            let y = bounds.height - $0.y - chartHeight
+            var y = bounds.height - $0.y - chartHeight
+            
+            if $0.y == 0.0 {
+                y = bounds.height
+            }
+            print("Y - \($0.y)")
+            print(chartHeight)
             return CGPoint(x: x, y: y)
         }
         
