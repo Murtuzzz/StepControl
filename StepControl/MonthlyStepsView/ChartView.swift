@@ -106,8 +106,6 @@ private extension ChartView {
             if $0.y == 0.0 {
                 y = bounds.height
             }
-            print("Y - \($0.y)")
-            print(chartHeight)
             return CGPoint(x: x, y: y)
         }
         

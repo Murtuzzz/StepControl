@@ -72,7 +72,7 @@ final class HourlyStepBar: UIView {
                valueLabel.text = data.value
            }
        } else if data.heightMultiplier >= 1 {
-           valueLabel.text = ">1k"
+           valueLabel.text = "\(round(((Double(data.value) ?? 0)/100))/10)k"
        } else {
             valueLabel.text = data.value
         }

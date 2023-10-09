@@ -7,11 +7,19 @@
 
 import UIKit
 
+protocol WeekCollectionDelegate: AnyObject {
+    func didTapCell(index: Int)
+}
+
 final class WeekCell: UICollectionViewCell {
     
     static let id = "WeekCell"
     
+    private var index = 0
+    
     private var condition = false
+    
+    weak var delegate: WeekCollectionDelegate?
     
     private let container: UIView = {
         let view = UIStackView()
@@ -65,6 +73,8 @@ final class WeekCell: UICollectionViewCell {
     public func changeCondition() {
         if condition == false {
             container.backgroundColor = R.Colors.blue
+            nameLabel.textColor = R.Colors.darkGray
+            dateLabel.textColor = R.Colors.darkGray
             condition = true
         } else {
             container.backgroundColor = R.Colors.darkBlue
@@ -75,6 +85,8 @@ final class WeekCell: UICollectionViewCell {
     public func reset() {
         condition = false
         container.backgroundColor = R.Colors.darkBlue
+        nameLabel.textColor = .white
+        dateLabel.textColor = .white
     }
     
     func constraints() {
@@ -91,18 +103,28 @@ final class WeekCell: UICollectionViewCell {
         ])
     }
     
+    func getCellIndex(index: Int) {
+        print("GETINDEX = \(index)")
+        delegate?.didTapCell(index: index)
+    }
+    
     func configure(weekDay: String, date: String, index: Int) {
         let startOfWeek = Date().startOfWeek
         _ = startOfWeek.agoForward(to: 7)
+        
+        self.index = index
         //let day = Date.calendar.component(.day, from: Date())
         let dateFormatter = DateFormatter()
         let isToday = index == 6
         
+        if index == 6 {
+            dateLabel.textColor = R.Colors.darkGray
+            nameLabel.textColor = R.Colors.darkGray
+        }
+        
         Steps.shared.getSteps { [weak self] steps,error  in
             DispatchQueue.main.async {
                 
-                
-                //print(steps)
                 var stepsArray: [Double] = []
                 var dateArray: [String] = []
                 let sorted_dict = steps.sorted { $0.key < $1.key }
@@ -117,10 +139,12 @@ final class WeekCell: UICollectionViewCell {
                     stepsDict[(dateFormatter.string(from:date))] = steps
                     //print(stepsDict)
                     
+                    print("stepsArray = \(stepsArray)")
+                    
                     if dateArray.contains(weekDay) {
                         if index < stepsArray.count-1 {
                             if stepsDict[weekDay]! >= Double(UserSettings.target ?? "10000") ?? 99999 {
-                                self!.backgroundColor = .systemTeal
+                                self!.container.backgroundColor = .systemTeal
                             } else {
 
                             }
@@ -131,11 +155,11 @@ final class WeekCell: UICollectionViewCell {
         }
         
         container.backgroundColor = isToday ? R.Colors.blue : R.Colors.darkBlue
-        
+    
         nameLabel.text = weekDay.uppercased()
-        nameLabel.textColor = isToday ? .white : R.Colors.inactive
+        nameLabel.textColor = isToday ? R.Colors.darkGray : .white
         
         dateLabel.text = date
-        dateLabel.textColor = isToday ? .white : R.Colors.inactive
+        dateLabel.textColor = isToday ? R.Colors.darkGray : .white
     }
 }

@@ -45,7 +45,7 @@ final class AchievementCell: UICollectionViewCell {
         if isActive == true {
             achievementsImageView.image = UIImage(named: image)
         } else {
-            achievementsImageView.tintColor = R.Colors.blue
+            achievementsImageView.tintColor = R.Colors.darkGray
             achievementsImageView.image = UIImage(named: image)?.withRenderingMode(.alwaysTemplate)
         }
     }

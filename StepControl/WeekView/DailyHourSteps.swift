@@ -15,7 +15,7 @@ final class DailyHourSteps: UIViewController {
     
     let healthStore = HKHealthStore()
     let stepsCount = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-    var stepsArray : [[Int]] = []
+    var stepsArray : [[Double]] = []
     
     func getAuthorization() {
         let readTypes: Set<HKObjectType> = [stepsCount]
@@ -33,7 +33,7 @@ final class DailyHourSteps: UIViewController {
     
     
     
-    func getSteps(completion: @escaping ([String: [Int]]) -> ()) {
+    func getSteps(completion: @escaping ([String: [Double]]) -> ()) {
         guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             fatalError("Тип данных о шагах недоступен")
         }
@@ -51,7 +51,7 @@ final class DailyHourSteps: UIViewController {
                                                 anchorDate: startDate,
                                                 intervalComponents: DateComponents(hour: 1))
         
-        var stepsPerHourPerDay: [String: [Int]] = [:]
+        var stepsPerHourPerDay: [String: [Double]] = [:]
         
         query.initialResultsHandler = { query, results, error in
             guard let result = results else {
@@ -62,16 +62,16 @@ final class DailyHourSteps: UIViewController {
             result.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
                 let date = calendar.startOfDay(for: statistics.startDate)
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "dd"
+                dateFormatter.dateFormat = "d"
                 let dateKey = dateFormatter.string(from: date)
                 
                 let hour = calendar.component(.hour, from: statistics.startDate)
                 
-                var stepsPerHour: [Int] = stepsPerHourPerDay[dateKey] ?? Array(repeating: 0, count: 24)
+                var stepsPerHour: [Double] = stepsPerHourPerDay[dateKey] ?? Array(repeating: 0, count: 24)
                 
                 if let quantity = statistics.sumQuantity() {
                     let steps = Int(quantity.doubleValue(for: .count()))
-                    stepsPerHour[hour] = steps
+                    stepsPerHour[hour] = Double(steps)
                     self.stepsArray.append(stepsPerHour)
 //                    self.stepsArray.append(stepsPerHour)
 //                    print(stepsPerHour)

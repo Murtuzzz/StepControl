@@ -13,6 +13,7 @@ final class UserSettings {
         case target
         case isNotificationsOn
         case themeIndex
+        case weekCellIndex
     }
     
     static var target: String? {
@@ -57,6 +58,22 @@ final class UserSettings {
             if let theme = newValue {
                 print("value: \(theme) was added to key \(key)")
                 defaults.set(theme, forKey: key)
+            } else {
+                defaults.removeObject(forKey: key)
+            }
+        }
+    }
+    
+    static var weekCellIndex: Int! {
+        get {
+            return UserDefaults.standard.integer(forKey: SettingsKeys.weekCellIndex.rawValue)
+        } set {
+            
+            let defaults = UserDefaults.standard
+            let key = SettingsKeys.weekCellIndex.rawValue
+            if let index = newValue {
+                print("value: \(index) was added to key \(key)")
+                defaults.set(index, forKey: key)
             } else {
                 defaults.removeObject(forKey: key)
             }

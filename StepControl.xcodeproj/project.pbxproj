@@ -40,6 +40,10 @@
 		B48A5FBC2AB3122100477D4F /* YAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FBB2AB3122100477D4F /* YAxisView.swift */; };
 		B48A5FBF2AB3198B00477D4F /* XAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FBE2AB3198B00477D4F /* XAxisView.swift */; };
 		B48A5FC12AB32CA600477D4F /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FC02AB32CA600477D4F /* ChartView.swift */; };
+		B4929BD42AC66A6C00FBBEDB /* HourlyStepsBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4929BD32AC66A6C00FBBEDB /* HourlyStepsBackground.swift */; };
+		B4929BD62AC66BE600FBBEDB /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4929BD52AC66BE600FBBEDB /* CustomLayout.swift */; };
+		B4929BD82AC6816D00FBBEDB /* SegmentedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4929BD72AC6816D00FBBEDB /* SegmentedCollection.swift */; };
+		B4929BDA2AC685C900FBBEDB /* SegmentedCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4929BD92AC685C900FBBEDB /* SegmentedCollectionCell.swift */; };
 		B4BD71512AC03C3600BFD690 /* DailyHourSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD71502AC03C3600BFD690 /* DailyHourSteps.swift */; };
 		B4C4A99B2AA8FB05006FAB89 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */; };
 		B4C4A9A02AACF56B006FAB89 /* AchievementsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4A99F2AACF56B006FAB89 /* AchievementsController.swift */; };
@@ -82,6 +86,10 @@
 		B48A5FBB2AB3122100477D4F /* YAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisView.swift; sourceTree = "<group>"; };
 		B48A5FBE2AB3198B00477D4F /* XAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAxisView.swift; sourceTree = "<group>"; };
 		B48A5FC02AB32CA600477D4F /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		B4929BD32AC66A6C00FBBEDB /* HourlyStepsBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyStepsBackground.swift; sourceTree = "<group>"; };
+		B4929BD52AC66BE600FBBEDB /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
+		B4929BD72AC6816D00FBBEDB /* SegmentedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCollection.swift; sourceTree = "<group>"; };
+		B4929BD92AC685C900FBBEDB /* SegmentedCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCollectionCell.swift; sourceTree = "<group>"; };
 		B4BD71502AC03C3600BFD690 /* DailyHourSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyHourSteps.swift; sourceTree = "<group>"; };
 		B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B4C4A99F2AACF56B006FAB89 /* AchievementsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsController.swift; sourceTree = "<group>"; };
@@ -101,9 +109,13 @@
 		B446B39A2ABBE4D30046BDD2 /* HourlyStepsView */ = {
 			isa = PBXGroup;
 			children = (
+				B4929BD72AC6816D00FBBEDB /* SegmentedCollection.swift */,
+				B4929BD92AC685C900FBBEDB /* SegmentedCollectionCell.swift */,
 				B446B3922AB9B13C0046BDD2 /* HourlyStepsCollection.swift */,
 				B446B3942AB9B7330046BDD2 /* HourlyStepsCell.swift */,
 				B446B3962AB9CFFD0046BDD2 /* HourlyStepBar.swift */,
+				B4929BD32AC66A6C00FBBEDB /* HourlyStepsBackground.swift */,
+				B4929BD52AC66BE600FBBEDB /* CustomLayout.swift */,
 			);
 			path = HourlyStepsView;
 			sourceTree = "<group>";
@@ -259,7 +271,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					B44EA9012A9F7EF3007AA1D1 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -313,13 +325,16 @@
 				B48A5FBF2AB3198B00477D4F /* XAxisView.swift in Sources */,
 				B44EA91C2AA08262007AA1D1 /* WeekdayView.swift in Sources */,
 				B44EA9242AA0E134007AA1D1 /* ProgressView.swift in Sources */,
+				B4929BD42AC66A6C00FBBEDB /* HourlyStepsBackground.swift in Sources */,
 				B44EA92A2AA11BF4007AA1D1 /* StepsCount.swift in Sources */,
 				B44EA9392AA3B155007AA1D1 /* BarView.swift in Sources */,
 				B44EA9202AA093AF007AA1D1 /* Colors.swift in Sources */,
 				B4C4A9A02AACF56B006FAB89 /* AchievementsController.swift in Sources */,
 				B446B39F2ABBEC090046BDD2 /* WeekCell.swift in Sources */,
+				B4929BD62AC66BE600FBBEDB /* CustomLayout.swift in Sources */,
 				B44EA9222AA093B6007AA1D1 /* R.swift in Sources */,
 				B48A5FBC2AB3122100477D4F /* YAxisView.swift in Sources */,
+				B4929BD82AC6816D00FBBEDB /* SegmentedCollection.swift in Sources */,
 				B44EA9062A9F7EF3007AA1D1 /* AppDelegate.swift in Sources */,
 				B48A5FAF2AADA89300477D4F /* AchievementCell.swift in Sources */,
 				B44EA93B2AA3B22C007AA1D1 /* DailyStepsView.swift in Sources */,
@@ -327,6 +342,7 @@
 				B48A5FBA2AB2FAE800477D4F /* ChartsView.swift in Sources */,
 				B4C4A99B2AA8FB05006FAB89 /* UserSettings.swift in Sources */,
 				B44EA9372AA3B0A4007AA1D1 /* BarsView.swift in Sources */,
+				B4929BDA2AC685C900FBBEDB /* SegmentedCollectionCell.swift in Sources */,
 				B446B3932AB9B13C0046BDD2 /* HourlyStepsCollection.swift in Sources */,
 				B44EA9082A9F7EF3007AA1D1 /* SceneDelegate.swift in Sources */,
 				B44EA9342AA3A792007AA1D1 /* GrafficsController.swift in Sources */,
@@ -388,6 +404,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -448,6 +465,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

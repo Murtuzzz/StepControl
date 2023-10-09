@@ -12,10 +12,13 @@ enum R {
         
         static var background = UIColor(hexString: "#e2eaf2")
         static var gray = UIColor(hexString: "#6a6f70")
-        static var darkBlue = UIColor(hexString: "#3B3395")
-        static var blue = UIColor(hexString: "#8781f4")
-        static var inactive = UIColor.white //UIColor(hexString: "#d3ddf5")
+        //static var darkBlue = UIColor(hexString: "#3B3395")
+        //static var blue = UIColor(hexString: "#8781f4")
+        static var inactive = UIColor.white
         static let orange = UIColor(hexString: "#FF9C41")
+        static let darkGray = UIColor(hexString: "#2d3250")
+        static let darkBlue = UIColor(hexString: "#424769")
+        static let blue = UIColor(hexString: "#fdb17a")
     }
     
     enum Fonts {

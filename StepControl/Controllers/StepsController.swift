@@ -8,30 +8,38 @@
 import UIKit
 import UserNotifications
 
-class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
+class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
+    
     
     static var shared = StepsController()
     
     var index = 0 {
         didSet {
-            setHourlySteps(arrayInd: index)
             print(index)
+            setCollectionSteps(cellIndex: index)
         }
     }
     
-    private var theme = ["dark","light","system"]
+    func getWeekDay(_ index: Int) {
+        self.index = index
+    }
     
-    var ind2 = 0
+    private var dataToSend: [[Double]] = []
+    
+    private var theme = ["dark","light","system"]
     
     private var todaySteps: [Double] = []
     
     private var histogramView: HourlyStepsCollection? = nil
+    
+    private var segmentedView: SegmentedCollection? = nil
     
     private let notificationsCenter = AppDelegate()
     
     private let hourlySteps = HourlyStepsCount()
     
     private var grafData: [BarData] = []
+    
     
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -163,9 +171,8 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Steps"
-        print("1999 index \(index)")
         view.backgroundColor = .white
-        view.addSubview(backgroundImage)
+        //view.addSubview(backgroundImage)
         view.addSubview(scrollView)
         middleView.addSubview(progressView)
         middleView.addSubview(stepsImageView)
@@ -180,6 +187,7 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
         scrollView.addSubview(contentView)
         
         scrollView.delegate = self
+        weekView.delegate = self
         
         weekDaysApperance()
         middleView.addSubview(weekView)
@@ -188,6 +196,7 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
         self.configurate(with: Double(self.target ?? 10000), progress: Double(steps))
         
         stepsCount.getAuthorization()
+        setCollectionSteps(cellIndex: 6)
         getHourlySteps()
         getSteps()
         
@@ -212,14 +221,12 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
         
         constraints()
         themeChange()
-        weekView.delegate = self
-    }
-    
-    func didUpdateData(_ data: Int) {
-        index = data
+        
+        
+        view.backgroundColor = R.Colors.darkGray
         
     }
-    
+
     @objc
     func stepsButtonAction() {
         print("stepsButtonTapped")
@@ -273,10 +280,10 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
                 dateFormatter.dateFormat = "dd/MM"
                 let formattedDate = dateFormatter.string(from: date)
                 weekDays.append(formattedDate)
-                
                 dateComponents.day! -= 1
             }
         }
+        print(weekDays)
     }
     
     func getHourlySteps() {
@@ -294,7 +301,7 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
                 for i in 0...23 {
                     self!.grafData.append(.init(heightMultiplier: Double(steps[dateArray[i]]!)/890, value: "\(steps[dateArray[i]] ?? 00)", title: "\(dateArray[i])"))
                     
-                    print("Get - \(Double(steps[dateArray[i]]!)/890)")
+                    //print("Get - \(Double(steps[dateArray[i]]!)/890)")
                     
                     if steps[dateArray[i]] == 0 {
                         self!.todaySteps.append(0)
@@ -303,7 +310,7 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
                     }
                 }
                 
-                print("today steps = \(self!.todaySteps)")
+                //print("today steps = \(self!.todaySteps)")
                 
                 self!.histogramView = HourlyStepsCollection(data: self!.grafData)
                 
@@ -322,15 +329,16 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
         }
     }
     
+    
     func setHourlySteps(arrayInd: Int) {
         DailyHourSteps.shared.getSteps { [weak self] stepsPerHourPerDay in
             DispatchQueue.main.async {
                 
                 
-                print("daily steps Array = \(self!.todaySteps)")
+                //print("daily steps Array = \(self!.todaySteps)")
                 
                 guard let self = self else {return}
-                print("arrayInd = \(arrayInd)")
+                //print("arrayInd = \(arrayInd)")
                 
                 let stepsHourly = stepsPerHourPerDay.sorted { $0.key < $1.key }
                 var weekStepsArray: [[Double]] = []
@@ -347,9 +355,9 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
                 weekStepsArray.removeLast()
                 weekStepsArray.append(self.todaySteps)
                 
-                print(weekStepsArray)
+                print("SetHourlyWeekSteps = \(weekStepsArray)")
+           
                 let steps = weekStepsArray[arrayInd+1]
-                print(steps)
                 //print("CurrentSteps - \(steps)")
                 
                 self.grafData.removeAll()
@@ -364,7 +372,7 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
                 for i in 0...23 {
                     self.grafData.append(.init(heightMultiplier: Double(steps[i]/890), value: "\(Int(steps[i]))", title: "\(dateArray[i])"))
                     
-                    print("Set - \(Double(steps[i]/890))")
+                    //print("Set - \(Double(steps[i]/890))")
                 }
                 
                 //print("------GRAPH \(self!.grafData)")
@@ -382,6 +390,50 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
                     histogramView.centerXAnchor.constraint(equalTo: self.middleView.centerXAnchor),
                     histogramView.widthAnchor.constraint(equalToConstant: self.view.bounds.width - 48),
                     histogramView.heightAnchor.constraint(equalToConstant: self.view.bounds.height / 4),
+                ])
+            }
+        }
+    }
+    
+    func setCollectionSteps(cellIndex: Int) {
+        DailyHourSteps.shared.getSteps { [weak self] stepsPerHourPerDay in
+            DispatchQueue.main.async {
+                guard let self = self else {return}
+                
+                print("StepsPerHour = \(stepsPerHourPerDay)")
+                
+                let dateArray = self.getLastWeekdays()
+                let dayNumArray = dateArray[0]
+                let dayNameArray = dateArray[1]
+                
+                print(dateArray)
+                
+                var stepsHourly: [[Double]] = []
+                
+                //print("daily steps Array = \(self!.todaySteps)")
+                
+                for i in 0...6 {
+                    stepsHourly.append(stepsPerHourPerDay[dayNumArray[i]]!)
+                }
+                
+                stepsHourly.removeLast()
+                stepsHourly.append(self.todaySteps)
+                
+                self.histogramView?.removeFromSuperview()
+                self.segmentedView?.removeFromSuperview()
+                
+                self.segmentedView = SegmentedCollection(data: stepsHourly, cellIndex: cellIndex)
+                self.segmentedView!.updateCollection()
+                
+                //histogramView.configurate(with: grafData)
+                self.segmentedView!.translatesAutoresizingMaskIntoConstraints = false
+                self.middleView.addSubview(self.segmentedView!)
+                
+                NSLayoutConstraint.activate([
+                    self.segmentedView!.topAnchor.constraint(equalTo: self.weekView.bottomAnchor, constant: 8),
+                    self.segmentedView!.centerXAnchor.constraint(equalTo: self.middleView.centerXAnchor),
+                    self.segmentedView!.widthAnchor.constraint(equalToConstant: self.view.bounds.width - 48),
+                    self.segmentedView!.heightAnchor.constraint(equalToConstant: self.view.bounds.height / 4),
                 ])
             }
         }
@@ -407,22 +459,8 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
                 dateArray.reverse()
                 
                 print("GETSTEPS \(stepsArray) GETDATA \(dateArray)")
-                //var stepsString = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-                //let stepsMultiplier = stepsArray.map{$0 / 10000}
-                //stepsString = stepsArray.map {$0/1000}
-                
-                //                var grafData: [BarView.Data] = []
-                //
-                //
-                //                for i in stride(from: stepsArray.count-2, through: 0, by: -1) {
-                //                    grafData.append(.init(value: "\(Int(stepsString[i]))k", heightMultiplier: stepsMultiplier[i], title: dateArray[i]))
-                //                }
-                //
-                //
-                //                self!.histogramView.configurate(with: grafData)
-                
+        
                 if stepsArray.count > 0 {
-                    
                     self!.steps = Int(stepsArray[0] )
                     print(self!.steps)
                     self!.dailySteps = stepsArray
@@ -448,6 +486,37 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
         }
     }
     
+    func getLastWeekdays() -> [[String]] {
+        var dateArray: [[Substring]] = []
+        var dayNumArray: [String] = []
+        var dayNameArray: [String] = []
+        var dayAndDateArray: [[String]] = []
+        let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EE,d"
+
+        for i in 0...6 {
+            if let date = calendar.date(byAdding: .day, value: -i, to: Date()) {
+                let formattedDate = dateFormatter.string(from: date)
+                let dayAndDate = formattedDate.split(separator: ",")
+                dateArray.append(dayAndDate)
+            }
+        }
+            dateArray.reverse()
+            
+            for i in 0...6 {
+                let dayNum = (String(dateArray[i][1]))
+                dayNumArray.append(dayNum)
+                let dayName = (String(dateArray[i][0]))
+                dayNameArray.append(dayName)
+            }
+            
+            dayAndDateArray.append(dayNumArray)
+            dayAndDateArray.append(dayNameArray)
+            
+            return dayAndDateArray
+    }
+    
     func notifications() {
         print("Notifications = \(UserSettings.notifications!)")
         if self.target ?? 10000 > self.steps {
@@ -455,7 +524,7 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
             self.notificationsCenter.createNotification(title: "Поднажмите", body: "Шагов до цели: \((self.target ?? 10000) - self.steps)")
         }
     }
-    
+
     func configurate(with duration: Double, progress: Double) {
         
         let percent = Double(progress)/Double(target ?? 10000)/1.25
@@ -538,11 +607,11 @@ class StepsController: UIViewController, UIScrollViewDelegate, MyViewDelegate {
             stepsTargetLabel.centerXAnchor.constraint(equalTo: progressView.centerXAnchor),
             stepsTargetLabel.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor, constant: -8),
             
-            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
+//            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+//            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            
             weekView.topAnchor.constraint(equalTo: bottomStackView.bottomAnchor, constant: 32),
             //calendar.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             weekView.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 24),

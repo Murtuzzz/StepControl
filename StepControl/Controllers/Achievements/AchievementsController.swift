@@ -95,7 +95,9 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(backgroundImage)
+        //view.addSubview(backgroundImage)
+        
+        view.backgroundColor = R.Colors.darkGray
         
         view.addSubview(container)
         view.addSubview(achievementsImageView)
@@ -123,7 +125,7 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
 //                      .init(title: "Week Achievements", items: [.init(image: "cup", isActive: false, title: "First Steps", subtitle: "Walk 35.000 steps in one month"),
 //                                                                 .init(image: "cupGold", isActive: false,title: "We get started", subtitle: "Walk 50.000 steps in one week"),
 //                                                                 .init(image: "cupColor", isActive: false,title: "Step-addicted", subtitle: "Walk 70.000 steps in one week")]),
-                      .init(title: "Month Achievements", items: [.init(image: "star", isActive: false, title: "First Steps", subtitle: "Walk 135.000 steps in one month"),
+                      .init(title: "Month Achievements", items: [.init(image: "starRed", isActive: false, title: "First Steps", subtitle: "Walk 135.000 steps in one month"),
                                                                  .init(image: "starGold", isActive: false,title: "We get started", subtitle: "Walk 235.000 steps in one month"),
                                                                  .init(image: "starColor", isActive: false,title: "Step-addicted", subtitle: "Walk 300.000 steps in one month")]),]
         
@@ -252,11 +254,11 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             subtitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        
+//            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+//            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//        
         ])
     }
 }

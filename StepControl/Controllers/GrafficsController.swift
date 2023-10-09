@@ -2,6 +2,8 @@ import UIKit
 
 class GrafficsController: UIViewController {
     
+    private let screen = UIScreen.main.bounds.height
+    
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.backgroundColor = .clear
@@ -74,6 +76,8 @@ class GrafficsController: UIViewController {
         scrollView.addSubview(contentView)
         
         constraints()
+        
+        print("screen = \(monthlyGraf.bounds.height)")
     }
     
     func monthlyGrafApperance() {
@@ -108,6 +112,8 @@ class GrafficsController: UIViewController {
     func dailyGrafApperance() {
         Steps.shared.getSteps { [weak self] steps,error  in
             DispatchQueue.main.async {
+                
+                print("DailySteps = \(steps)")
                 var stepsArray: [Double] = []
                 var dateArray: [String] = []
                 
@@ -127,17 +133,17 @@ class GrafficsController: UIViewController {
                 print("GETSTEPS \(stepsArray) GETDATA \(dateArray)")
                 var stepsString = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
                 let stepsMultiplier = stepsArray.map{$0 / 10000}
-                stepsString = stepsArray.map {$0/1000}
+                stepsString = stepsArray.map{round(($0 / 1000) * 10)/10}
                 
                 var grafData: [BarView.Data] = []
                 
                 if stepsArray.count < 7 {
                     for i in stride(from: stepsArray.count-2, through: 0, by: -1) {
-                        grafData.append(.init(value: "\(Int(stepsString[i]))k", heightMultiplier: stepsMultiplier[i], title: dateArray[i]))
+                        grafData.append(.init(value: "\(stepsString[i])k", heightMultiplier: Double(stepsMultiplier[i]), title: dateArray[i]))
                     }
                 } else {
                     for i in stride(from: stepsArray.count-2, through: 0, by: -1) {
-                        grafData.append(.init(value: "\(Int(stepsString[i]))k", heightMultiplier: stepsMultiplier[i], title: dateArray[i]))
+                        grafData.append(.init(value: "\(stepsString[i])k", heightMultiplier: Double(stepsMultiplier[i]), title: dateArray[i]))
                     }
                 }
                 
@@ -163,7 +169,7 @@ class GrafficsController: UIViewController {
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: view.bounds.height + 0.5),
+            contentView.heightAnchor.constraint(equalToConstant: view.bounds.height + 88),
             
             middleView.topAnchor.constraint(equalTo: contentView.topAnchor),
             middleView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
@@ -179,7 +185,7 @@ class GrafficsController: UIViewController {
             dailyGraf.topAnchor.constraint(equalTo: dailyTitleLabel.bottomAnchor, constant: 8),
             dailyGraf.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
             dailyGraf.widthAnchor.constraint(equalToConstant: view.bounds.width - 48),
-            dailyGraf.heightAnchor.constraint(equalToConstant: view.bounds.height / 3.4),
+            dailyGraf.heightAnchor.constraint(equalToConstant: 250),
             
             monthlyTitleLabel.topAnchor.constraint(equalTo: dailyGraf.bottomAnchor, constant: 32),
             monthlyTitleLabel.leadingAnchor.constraint(equalTo: monthlyGraf.leadingAnchor),
@@ -187,7 +193,7 @@ class GrafficsController: UIViewController {
             monthlyGraf.topAnchor.constraint(equalTo: monthlyTitleLabel.bottomAnchor, constant: 8),
             monthlyGraf.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
             monthlyGraf.widthAnchor.constraint(equalToConstant: view.bounds.width - 48),
-            monthlyGraf.heightAnchor.constraint(equalToConstant: view.bounds.height / 3),
+            monthlyGraf.heightAnchor.constraint(equalToConstant: 280),
         
         ])
     }

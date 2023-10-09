@@ -62,11 +62,23 @@ final class BarView: UIView {
         titleLabel.text = data.title
         //valueLabel.text = data.value
         
-        if data.heightMultiplier <= 0.1 {
-            valueLabel.text = "<1k"
+        if data.heightMultiplier == 0 {
+            valueLabel.text = ""
         } else {
             valueLabel.text = data.value
         }
+        
+//        if data.heightMultiplier == 0 {
+//            if data.value == "0" {
+//                valueLabel.text = ""
+//            } else {
+//                valueLabel.text = data.value
+//            }
+//        } else if data.heightMultiplier >= 1 {
+//            valueLabel.text = ">1k"
+//        } else {
+//             valueLabel.text = data.value
+//        }
         
         constraints()
         //themeChange()
@@ -76,9 +88,11 @@ final class BarView: UIView {
         var height = 0.0
         if data.heightMultiplier >= 1 {
             height = 1
-        } else if data.heightMultiplier <= 0.25 {
+        } else if data.heightMultiplier <= 0.25 && data.heightMultiplier > 0 {
             height = 0.25
-        } else {
+        } else if data.heightMultiplier == 0 {
+            height = 0.2
+        }else {
             height = data.heightMultiplier
         }
         return height

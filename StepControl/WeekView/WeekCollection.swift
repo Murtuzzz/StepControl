@@ -13,29 +13,30 @@ struct WeekData {
     let index: Int
 }
 
-protocol MyViewDelegate: AnyObject {
-    func didUpdateData(_ data: Int)
+protocol WeekDayDelegate: AnyObject {
+    func getWeekDay(_ index: Int)
 }
-
 
 final class WeekCollection: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    weak var delegate: MyViewDelegate?
+    weak var delegate: WeekDayDelegate?
+    
+    var currentIndexPath: IndexPath?
     
     private var cellPath = 0
     
-    static var shared = WeekCollection()
+//    static var shared = WeekCollection()
     
     private var collectionView: UICollectionView?
     
     private var dataSource: [WeekData] = []
     
-    private var cellsList: [WeekCell] = []
+    var cellsList: [WeekCell] = []
     
     init() {
         super.init(frame: .zero)
         
-        collectionViewApperance()
+        stepsCollectionApperance()
         settings()
     }
     
@@ -43,11 +44,10 @@ final class WeekCollection: UIView, UICollectionViewDelegateFlowLayout, UICollec
         fatalError("init(coder:) has not been implemented")
     }
     
-    func collectionViewApperance() {
+    func stepsCollectionApperance() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 2.7
-    
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -120,16 +120,18 @@ extension WeekCollection {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        cellsList.forEach{ item in
+        cellsList.forEach { item in
             item.reset()
+            
         }
-       
+        
+        delegate?.getWeekDay(indexPath.row)
         
         cellsList[indexPath.row].changeCondition()
-        self.cellPath = indexPath.row
-        delegate?.didUpdateData(indexPath.row)
-
-    
+//        self.cellPath = indexPath.row
+        self.currentIndexPath = indexPath
+        print(indexPath.row)
+        cellsList[indexPath.row].getCellIndex(index: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
