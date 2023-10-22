@@ -20,7 +20,7 @@ final class HourlyStepBar: UIView {
     private var heightMultiplier: Double
     
     var color1: UIColor = R.Colors.darkBlue
-    var color2: UIColor = R.Colors.blue
+    var color2: UIColor = R.Colors.orangeTwo
     
     private let valueLabel: UILabel = {
         let label = UILabel()
@@ -32,7 +32,7 @@ final class HourlyStepBar: UIView {
     
     private let barView: UIView = {
         let view = UIView()
-        view.backgroundColor = R.Colors.blue
+        view.backgroundColor = R.Colors.orangeTwo
         view.layer.cornerRadius = 2.5
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

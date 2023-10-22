@@ -25,7 +25,7 @@ final class DailyHourSteps: UIViewController {
                 print(error)
             } else if success {
                 self.getSteps(completion: { steps in
-                    print("Steps: \(steps)")
+                    print("DailySteps: \(steps)")
                 })
             }
         }
@@ -70,7 +70,7 @@ final class DailyHourSteps: UIViewController {
                 var stepsPerHour: [Double] = stepsPerHourPerDay[dateKey] ?? Array(repeating: 0, count: 24)
                 
                 if let quantity = statistics.sumQuantity() {
-                    let steps = Int(quantity.doubleValue(for: .count()))
+                    let steps = quantity.doubleValue(for: .count())
                     stepsPerHour[hour] = Double(steps)
                     self.stepsArray.append(stepsPerHour)
 //                    self.stepsArray.append(stepsPerHour)

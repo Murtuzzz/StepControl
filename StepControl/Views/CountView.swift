@@ -35,7 +35,7 @@ extension StepsController {
         private let subtitleLabel: UILabel = {
             let label = UILabel()
             label.font = R.Fonts.avenirBook(with: 10)
-            label.textColor = R.Colors.blue
+            label.textColor = R.Colors.orangeTwo
             label.translatesAutoresizingMaskIntoConstraints = false
             label.textAlignment = .center
             //            label.adjustsFontForContentSizeCategory = true
@@ -77,10 +77,10 @@ extension StepsController {
         func themeChange() {
             if theme[UserSettings.themeIndex] == "light" {
                 percentLabel.textColor = R.Colors.darkBlue
-                subtitleLabel.textColor = R.Colors.blue
+                subtitleLabel.textColor = R.Colors.orangeTwo
             } else if theme[UserSettings.themeIndex] == "dark" {
                 percentLabel.textColor = R.Colors.inactive
-                subtitleLabel.textColor = R.Colors.blue
+                subtitleLabel.textColor = R.Colors.orangeTwo
             } else {
                 
             }

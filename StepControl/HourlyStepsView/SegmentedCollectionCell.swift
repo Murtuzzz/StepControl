@@ -20,14 +20,14 @@ final class SegmentedCollectionCell: UICollectionViewCell {
     
     private var border1: UIView = {
         let view = UIView()
-        view.backgroundColor = R.Colors.blue.withAlphaComponent(0.5)
+        view.backgroundColor = R.Colors.orangeTwo.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private var border2: UIView = {
         let view = UIView()
-        view.backgroundColor = R.Colors.blue.withAlphaComponent(0.5)
+        view.backgroundColor = R.Colors.orangeTwo.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

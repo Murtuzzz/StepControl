@@ -111,7 +111,7 @@ class GrafficsController: UIViewController {
     
     func dailyGrafApperance() {
         Steps.shared.getSteps { [weak self] steps,error  in
-            DispatchQueue.main.async {
+            DispatchQueue.main.sync {
                 
                 print("DailySteps = \(steps)")
                 var stepsArray: [Double] = []

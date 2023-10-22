@@ -98,7 +98,7 @@ extension WeekCell {
                 }
             }
             
-            backgroundColor = isToday ? R.Colors.blue : R.Colors.darkBlue
+            backgroundColor = isToday ? R.Colors.orangeTwo : R.Colors.darkBlue
             
             nameLabel.text = name.uppercased()
             nameLabel.textColor = isToday ? .white : R.Colors.inactive

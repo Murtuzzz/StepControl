@@ -87,7 +87,7 @@ private extension ChartView {
         
         let dashLayer = CAShapeLayer()
         dashLayer.path = dashPath
-        dashLayer.strokeColor = R.Colors.blue.withAlphaComponent(0.5).cgColor
+        dashLayer.strokeColor = R.Colors.orangeTwo.withAlphaComponent(0.5).cgColor
         dashLayer.lineWidth = 1
         dashLayer.lineDashPattern = [6, 3]
         
@@ -122,7 +122,7 @@ private extension ChartView {
         let chartLayer = CAShapeLayer()
         chartLayer.path = chartPath.cgPath
         chartLayer.fillColor = UIColor.clear.cgColor
-        chartLayer.strokeColor = R.Colors.blue.cgColor
+        chartLayer.strokeColor = R.Colors.orangeTwo.cgColor
         chartLayer.lineWidth = 3
         chartLayer.strokeEnd = 1
         chartLayer.lineJoin = .round
@@ -142,7 +142,7 @@ private extension ChartView {
         
         let dotLayer = CAShapeLayer()
         dotLayer.path = dotPath.cgPath
-        dotLayer.strokeColor = R.Colors.blue.cgColor
+        dotLayer.strokeColor = R.Colors.orangeTwo.cgColor
         dotLayer.lineCap = .round
         dotLayer.lineWidth = 8
 //        dotLayer.shadowOffset = CGSize(width: 0, height: 5)

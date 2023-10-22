@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 extension Date {
     static var calendar: Calendar = {
         var calendar = Calendar(identifier: .gregorian)
@@ -57,3 +58,4 @@ extension SettingsController {
         present(alert, animated: true)
     }
 }
+

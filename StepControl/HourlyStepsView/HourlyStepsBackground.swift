@@ -21,21 +21,21 @@ final class HourlyStepsBackground: UIView {
     
     private let separatorOne: UIView = {
         let view = UIView()
-        view.backgroundColor = R.Colors.blue.withAlphaComponent(0.5)
+        view.backgroundColor = R.Colors.orangeTwo.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let separatorTwo: UIView = {
         let view = UIView()
-        view.backgroundColor = R.Colors.blue.withAlphaComponent(0.5)
+        view.backgroundColor = R.Colors.orangeTwo.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let separatorThree: UIView = {
         let view = UIView()
-        view.backgroundColor = R.Colors.blue.withAlphaComponent(0.5)
+        view.backgroundColor = R.Colors.orangeTwo.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

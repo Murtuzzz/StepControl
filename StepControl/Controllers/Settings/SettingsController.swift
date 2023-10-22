@@ -24,8 +24,15 @@ final class SettingsController: UIViewController {
         return label
     }()
     
+    private let bigCloseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+        return button
+    }()
+    
     private let segmentedControl: UISegmentedControl = {
-        let segment = UISegmentedControl(items: ["Dark","Light","System"])
+        let segment = UISegmentedControl(items: ["Dark","Light"])
         segment.selectedSegmentIndex = UserSettings.themeIndex ?? 0
         segment.clipsToBounds = true
         segment.layer.masksToBounds = true
@@ -35,7 +42,7 @@ final class SettingsController: UIViewController {
         segment.translatesAutoresizingMaskIntoConstraints = false
         segment.tintColor = .white
         segment.selectedSegmentTintColor = R.Colors.darkBlue
-        segment.backgroundColor = R.Colors.blue.withAlphaComponent(0.5)
+        segment.backgroundColor = R.Colors.orangeTwo.withAlphaComponent(0.5)
         return segment
     }()
     
@@ -129,13 +136,14 @@ final class SettingsController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
-        button.tintColor = R.Colors.blue
+        button.tintColor = R.Colors.orangeTwo
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
+        view.addSubview(bigCloseButton)
         view.addSubview(container)
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
@@ -155,8 +163,22 @@ final class SettingsController: UIViewController {
         notificationsSwitch.addTarget(self, action: #selector(switchAction), for: .valueChanged)
         saveTargetButton.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
         closeButton.addTarget(self, action: #selector(closeButtonAction), for: .touchUpInside)
+        bigCloseButton.addTarget(self, action: #selector(closeButtonAction), for: .touchUpInside)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
         
         constraints()
+        keyboardApperance()
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func changeTheme(to theme: UIUserInterfaceStyle) {
@@ -166,6 +188,27 @@ final class SettingsController: UIViewController {
             }
         }
     }
+    
+    func keyboardApperance() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height/4
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+
     
     @objc
     func segmentedControlAction() {
@@ -196,7 +239,6 @@ final class SettingsController: UIViewController {
     
     @objc
     private func closeButtonAction() {
-        
         dismiss(animated: true)
     }
     
@@ -269,6 +311,11 @@ final class SettingsController: UIViewController {
             container.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 24),
             container.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            bigCloseButton.topAnchor.constraint(equalTo: view.topAnchor),
+            bigCloseButton.bottomAnchor.constraint(equalTo: container.topAnchor),
+            bigCloseButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bigCloseButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         
         ])
     }

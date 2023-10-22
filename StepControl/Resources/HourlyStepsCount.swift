@@ -24,7 +24,7 @@ class HourlyStepsCount: UIViewController {
                 print(error)
             } else if success {
                 self.getSteps(completion: { steps in
-                    print("Steps: \(steps)")
+                    print("HourlySteps: \(steps)")
                 })
             }
         }
@@ -66,7 +66,7 @@ class HourlyStepsCount: UIViewController {
                     stepsPerHour["\(hour):00"] = 0
                 }
             }
-            
+            print("HourlySteps: \(stepsPerHour)")
             completion(stepsPerHour)
         }
         

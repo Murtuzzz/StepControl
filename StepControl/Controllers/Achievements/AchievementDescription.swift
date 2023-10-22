@@ -9,17 +9,26 @@ import UIKit
 
 final class AchievementDescription: UIViewController {
     
-    let topViewRounded: UIView = {
+    private var icon: UIImage? = nil
+    
+    private let topViewRounded: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = R.Colors.blue.withAlphaComponent(0.5)
+        view.backgroundColor = R.Colors.orangeTwo.withAlphaComponent(0.5)
         view.layer.cornerRadius = 3
         return view
     }()
     
-    let titleLabel: UILabel = {
+    private let bigCloseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+        return button
+    }()
+    
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "10 km"
+        label.text = ""
         label.textColor = R.Colors.orange
         label.font = R.Fonts.avenirBook(with: 36)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,9 +37,9 @@ final class AchievementDescription: UIViewController {
         return label
     }()
     
-    let subtitle: UILabel = {
+    private let subtitle: UILabel = {
         let label = UILabel()
-        label.text = "Reach 10 km in one day"
+        label.text = ""
         label.textColor = .white
         label.font = R.Fonts.avenirBook(with: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +49,7 @@ final class AchievementDescription: UIViewController {
     private let container: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = R.Colors.darkBlue
+        view.backgroundColor = R.Colors.darkGray
         view.layer.cornerRadius = 30
         return view
     }()
@@ -56,7 +65,7 @@ final class AchievementDescription: UIViewController {
     private let imageViewBackground: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = R.Colors.blue
+        view.backgroundColor = R.Colors.darkBlue
         view.layer.cornerRadius = 65
         return view
     }()
@@ -65,6 +74,7 @@ final class AchievementDescription: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
+        view.addSubview(bigCloseButton)
         view.addSubview(container)
         view.addSubview(imageViewBackground)
         view.addSubview(achievementsImageView)
@@ -72,21 +82,75 @@ final class AchievementDescription: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(subtitle)
         
+        bigCloseButton.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
         
         constraints()
+    }
+    
+    @objc
+    private func closeAction() {
+        dismiss(animated: true)
+    }
+    
+    func gif(data: Data) -> UIImage? {
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
+            return nil
+        }
+        
+        var images = [CGImage]()
+        
+        let count = CGImageSourceGetCount(source)
+        for i in 0..<count {
+            if let image = CGImageSourceCreateImageAtIndex(source, i, nil) {
+                images.append(image)
+            }
+        }
+        
+        return UIImage.animatedImage(with: images.map { UIImage(cgImage: $0) }, duration: 2.0)
     }
     
     init(image: String, title: String, description: String, isActive: Bool) {
         super.init(nibName: nil, bundle: nil)
         titleLabel.text = title
         subtitle.text = description
+        var imageList = image.split(separator: ".")
+        print(imageList)
         if isActive == true {
-            achievementsImageView.image = UIImage(named: image)
+            if imageList.contains("gif") {
+                
+                imageList.reverse()
+                let img = String(imageList[0] + imageList[1])
+                print(img)
+                guard let asset = NSDataAsset(name: img) else {return}
+                
+                achievementsImageView.removeFromSuperview()
+                achievementsImageView.image = nil
+                if let gif = gif(data: asset.data) {
+                    let imageView = UIImageView(image: gif)
+                    view.addSubview(imageView)
+                    
+                    imageView.translatesAutoresizingMaskIntoConstraints = false
+                    
+                    NSLayoutConstraint.activate([
+                        imageView.centerYAnchor.constraint(equalTo: imageViewBackground.centerYAnchor),
+                        imageView.centerXAnchor.constraint(equalTo: imageViewBackground.centerXAnchor),
+                        imageView.heightAnchor.constraint(equalToConstant: 104),
+                        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+                        
+                        
+                    ])
+                }
+                
+            } else {
+                achievementsImageView.image = UIImage(named: image)
+            }
+            
         } else {
-            achievementsImageView.tintColor = R.Colors.darkBlue
-            titleLabel.textColor = R.Colors.blue
+            achievementsImageView.tintColor = R.Colors.darkGray
+            titleLabel.textColor = R.Colors.orangeTwo
             achievementsImageView.image = UIImage(named: image)?.withRenderingMode(.alwaysTemplate)
         }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -116,6 +180,11 @@ final class AchievementDescription: UIViewController {
             container.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 24),
             container.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            bigCloseButton.topAnchor.constraint(equalTo: view.topAnchor),
+            bigCloseButton.bottomAnchor.constraint(equalTo: container.topAnchor),
+            bigCloseButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bigCloseButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             topViewRounded.topAnchor.constraint(equalTo: container.topAnchor, constant: 15),
             topViewRounded.centerXAnchor.constraint(equalTo: container.centerXAnchor),

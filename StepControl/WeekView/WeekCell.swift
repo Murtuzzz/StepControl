@@ -72,7 +72,7 @@ final class WeekCell: UICollectionViewCell {
     
     public func changeCondition() {
         if condition == false {
-            container.backgroundColor = R.Colors.blue
+            container.backgroundColor = R.Colors.orangeTwo
             nameLabel.textColor = R.Colors.darkGray
             dateLabel.textColor = R.Colors.darkGray
             condition = true
@@ -139,8 +139,6 @@ final class WeekCell: UICollectionViewCell {
                     stepsDict[(dateFormatter.string(from:date))] = steps
                     //print(stepsDict)
                     
-                    print("stepsArray = \(stepsArray)")
-                    
                     if dateArray.contains(weekDay) {
                         if index < stepsArray.count-1 {
                             if stepsDict[weekDay]! >= Double(UserSettings.target ?? "10000") ?? 99999 {
@@ -154,7 +152,7 @@ final class WeekCell: UICollectionViewCell {
             }
         }
         
-        container.backgroundColor = isToday ? R.Colors.blue : R.Colors.darkBlue
+        container.backgroundColor = isToday ? R.Colors.orangeTwo : R.Colors.darkBlue
     
         nameLabel.text = weekDay.uppercased()
         nameLabel.textColor = isToday ? R.Colors.darkGray : .white

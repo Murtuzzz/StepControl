@@ -18,7 +18,9 @@ enum R {
         static let orange = UIColor(hexString: "#FF9C41")
         static let darkGray = UIColor(hexString: "#2d3250")
         static let darkBlue = UIColor(hexString: "#424769")
-        static let blue = UIColor(hexString: "#fdb17a")
+        static let orangeTwo = UIColor(hexString: "#fdb17a")
+        static let orangeThree = UIColor(hexString: "#E25825")
+        
     }
     
     enum Fonts {

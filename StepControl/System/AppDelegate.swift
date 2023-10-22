@@ -43,14 +43,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             content.body = body
             content.sound = UNNotificationSound.default
             
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
-            let request = UNNotificationRequest(identifier: "Notification", content: content, trigger: trigger)
-            
-            center.add(request) { error in
-                if let error = error {
-                    print("Не удалось добавить уведомление: \(error.localizedDescription)")
-                } else {
-                    print("Уведомление добавлено успешно")
+            let times = [[8, 0], [13, 0], [20, 0]] // Утро, полдень, вечер
+            for time in times {
+                var dateComponents = DateComponents()
+                dateComponents.hour = time[0]
+                dateComponents.minute = time[1]
+                
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                
+                center.add(request) { error in
+                    if let error = error {
+                        print("Не удалось добавить уведомление: \(error.localizedDescription)")
+                    } else {
+                        print("Уведомление добавлено успешно")
+                    }
                 }
             }
         } else {
@@ -58,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Notifications disabled")
         }
     }
+
 
 
     // MARK: UISceneSession Lifecycle

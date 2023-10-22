@@ -18,7 +18,7 @@ final class ProgressView: UIView {
         let radius: CGFloat?
         
         if UIScreen.main.bounds.height == 667 {
-            radius = circleFrame / 5.5
+            radius = circleFrame / 5.3
         } else {
             radius = circleFrame / 5.9
         }
@@ -46,7 +46,7 @@ final class ProgressView: UIView {
         //дизайн начальной точки
         let startDotLayer = CAShapeLayer()
         startDotLayer.path = circlePath.cgPath
-        startDotLayer.strokeColor = R.Colors.blue.cgColor
+        startDotLayer.strokeColor = R.Colors.orangeTwo.cgColor
         if UIScreen.main.bounds.height == 667 {
             startDotLayer.lineWidth = 19
         } else {
@@ -74,7 +74,7 @@ final class ProgressView: UIView {
         // дизайн полосы
         let circleLayer = CAShapeLayer()
         circleLayer.path = circlePath.cgPath
-        circleLayer.strokeColor = R.Colors.blue.cgColor
+        circleLayer.strokeColor = R.Colors.orangeTwo.cgColor
         if UIScreen.main.bounds.height == 667 {
             circleLayer.lineWidth = 19
         } else {
