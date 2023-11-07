@@ -15,6 +15,9 @@ final class UserSettings {
         case themeIndex
         case weekStepsArray
         case weekCellIndex
+        case isStreakWorking
+        case streakCount
+        case today
         case achOne
         case achTwo
         case achThree
@@ -28,6 +31,38 @@ final class UserSettings {
         
     }
     
+    static var today: String! {
+        get {
+            return UserDefaults.standard.string(forKey: SettingsKeys.today.rawValue)
+        } set {
+            
+            let defaults = UserDefaults.standard
+            let key = SettingsKeys.today.rawValue
+            if let today = newValue {
+                print("value: \(today) was added to key \(key)")
+                defaults.set(today, forKey: key)
+            } else {
+                defaults.removeObject(forKey: key)
+            }
+        }
+    }
+    
+    static var isStreakWorking: Bool! {
+        get {
+            return UserDefaults.standard.bool(forKey: SettingsKeys.isStreakWorking.rawValue)
+        } set {
+            
+            let defaults = UserDefaults.standard
+            let key = SettingsKeys.isStreakWorking.rawValue
+            if let streak = newValue {
+                print("value: \(streak) was added to key \(key)")
+                defaults.set(streak, forKey: key)
+            } else {
+                defaults.removeObject(forKey: key)
+            }
+        }
+    }
+    
     static var weekSteps: [Double]! {
         get {
             return UserDefaults.standard.array(forKey: SettingsKeys.weekStepsArray.rawValue) as? [Double]
@@ -38,6 +73,22 @@ final class UserSettings {
             if let steps = newValue {
                 print("value: \(steps) was added to key \(key)")
                 defaults.set(steps, forKey: key)
+            } else {
+                defaults.removeObject(forKey: key)
+            }
+        }
+    }
+    
+    static var streakCount: Int! {
+        get {
+            return UserDefaults.standard.integer(forKey: SettingsKeys.streakCount.rawValue)
+        } set {
+            
+            let defaults = UserDefaults.standard
+            let key = SettingsKeys.streakCount.rawValue
+            if let streakCount = newValue {
+                print("value: \(streakCount) was added to key \(key)")
+                defaults.set(streakCount, forKey: key)
             } else {
                 defaults.removeObject(forKey: key)
             }

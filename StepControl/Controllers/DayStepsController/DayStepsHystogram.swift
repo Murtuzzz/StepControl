@@ -36,8 +36,9 @@ struct DayStepsHystogram: View {
     
     @available(iOS 16.0, *)
     var body: some View {
-        Text("\(stepsCount) steps at \(hour):00")
+        Text("\(stepsCount) steps at \(hour)")
             .offset(x:16, y:8)
+            .foregroundStyle(Color.white)
             .frame(maxWidth: .infinity, alignment: .leading)
         ZStack {
             Chart {

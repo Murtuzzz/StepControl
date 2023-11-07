@@ -99,7 +99,6 @@ final class WeekCollection: UIView, UICollectionViewDelegateFlowLayout, UICollec
     
     func cellPath(completion: @escaping (Int) -> Void) {
         completion(self.cellPath)
-        print("cell = \(cellPath)")
     }
 }
 
@@ -130,7 +129,6 @@ extension WeekCollection {
         cellsList[indexPath.row].changeCondition()
 //        self.cellPath = indexPath.row
         self.currentIndexPath = indexPath
-        print(indexPath.row)
         cellsList[indexPath.row].getCellIndex(index: indexPath.row)
     }
     

@@ -25,7 +25,6 @@ final class DailyHourSteps: UIViewController {
                 print(error)
             } else if success {
                 self.getSteps(completion: { steps in
-                    print("DailySteps: \(steps)")
                 })
             }
         }

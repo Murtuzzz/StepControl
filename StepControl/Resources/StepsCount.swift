@@ -20,10 +20,22 @@ class Steps: UIViewController {
             } else if success {
                 self.getSteps(completion: { steps, error in
                     
-                    print("Steps -> \(steps)")
+//                    print("Steps -> \(steps)")
                 })
             }
         }
+        
+//        let typesToRead: Set<HKObjectType> = [flightsCount]
+        
+//        healthStore.requestAuthorization(toShare: nil, read: typesToRead) { (success, error) in
+//            if let error = error {
+//                print(error)
+//            }
+//            else if success {
+//                //self.getFloors(completion: { (flights, error) in
+//                    // Handle flights and errors here
+//            }
+//        }
     }
 
     func getSteps(completion: @escaping ([Date: Double], Error?) -> ()) {

@@ -160,7 +160,6 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
                 }
                 
                 var stepsWithoutToday = stepsArray
-                print(stepsWithoutToday)
                 
                 stepsWithoutToday.removeLast()
                 
@@ -189,8 +188,6 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
                         self!.collectionView?.reloadData()
                     }
                 }
-                
-                print(stepsWithoutToday)
             }
         }
         
@@ -273,6 +270,7 @@ final class AchievementController: UIViewController, UIScrollViewDelegate, UICol
     }
     
     func constraints() {
+        
         NSLayoutConstraint.activate([
             
             //MARK: - ScrollViewConstraints

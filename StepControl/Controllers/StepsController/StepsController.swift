@@ -16,7 +16,6 @@ class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
     
     var index = 6 {
         didSet {
-            print(index)
             stepsHystogramApperance(cellIndex: index)
         }
     }
@@ -25,7 +24,7 @@ class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
         self.index = index
     }
     
-    private var sumOfStepsToday = 0
+    private var sumOfStepsToday = 0.0
     
     private var dataToSend: [[Double]] = []
     
@@ -33,17 +32,15 @@ class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
     
     private var todaySteps: [Double] = []
     
-    private var histogramView: HourlyStepsCollection? = nil
-    
-    private var segmentedView: SegmentedCollection? = nil
+//    private var histogramView: HourlyStepsCollection? = nil
+//    
+//    private var segmentedView: SegmentedCollection? = nil
     
     private let notificationsCenter = AppDelegate()
     
     private let hourlySteps = HourlyStepsCount()
     
     private var hourlyChart: UIHostingController<HourlyHystogram>? = nil
-    
-    private var grafData: [BarData] = []
     
     
     private let scrollView: UIScrollView = {
@@ -166,6 +163,7 @@ class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         themeChange()
+        //stepsCount.getAuthorization()
     }
     
     override func viewDidLoad() {
@@ -224,48 +222,70 @@ class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
         constraints()
         themeChange()
         
-        print("Theme = \(traitCollection.userInterfaceStyle)")
-        
         //animatedImage()
         view.backgroundColor = R.Colors.darkGray
         
         
     }
     
+    //MARK: - StreakView
     func streakViewApperance() {
         
-        var result = 0
-        var isWorking = true
+        print("Is streak working = \(UserSettings.isStreakWorking)")
+        
+        if UserSettings.isStreakWorking == nil {
+            UserSettings.isStreakWorking = true
+        }
+        var isWorking: Bool = UserSettings.isStreakWorking ?? true
+        
         let todaySteps = UserSettings.weekSteps ?? [0,0,0,0,0,0,0]
+        print("todaySteps = \(todaySteps)")
         
-        //        let currentTime = formatter.string(from: date)
-        //        let timeList = currentTime.split(separator: ":")
-        //        let hour = Int(timeList[0])!
-        
-        if todaySteps.count != 0 {
-            if todaySteps[0] == 0 {
-                isWorking = true
-            }
-            
-            if Int(todaySteps[0]) == target {
-                result += 1
+        var streakCount = 0 {
+            didSet {
+                UserSettings.streakCount += streakCount
                 isWorking = false
-            }
-            
-            if isWorking {
-                
-                if Int(todaySteps[0]) >= target! {
-                    result += 1
-                    isWorking = false
-                }
-                
-                if Int(todaySteps[1]) < target! && Int(todaySteps[0]) < target! {
-                    result = 0
-                }
             }
         }
         
-        let streakView = StreakView(value: result)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E"
+
+        let currentDay = dateFormatter.string(from: Date())
+        //print("Current day = \(currentDay), yesterday = \(UserSettings.today)")
+       
+        //print("Current day = \(currentDay) yesterday = \(UserSettings.today) isStreakWorking = \(UserSettings.isStreakWorking) today steps = \(todaySteps)")
+        
+        if todaySteps.count > 0 {
+            if Int(todaySteps[1]) < target! && Int(todaySteps[0]) < target! {
+                UserSettings.streakCount = 0
+                print("Int(todaySteps[1]) < target! && Int(todaySteps[0]) < target!")
+            }
+        }
+        
+        if currentDay != UserSettings.today {
+            UserSettings.isStreakWorking = true
+            if todaySteps.count != 0 {
+                if UserSettings.isStreakWorking == true {
+                    
+                    if Int(todaySteps[0]) >= target! {
+                        streakCount += 1
+                        UserSettings.isStreakWorking = false
+                        print("Int(todaySteps[0]) >= target!")
+                    } else if Int(todaySteps[1]) < target! && Int(todaySteps[0]) < target! {
+                        UserSettings.streakCount = 0
+                        print("Int(todaySteps[1]) < target! && Int(todaySteps[0]) < target!")
+                    }
+                } else {
+                    print(isWorking)
+                }
+            }
+            UserSettings.today = currentDay
+        }
+        
+        
+        
+        let streakView = StreakView(value: UserSettings.streakCount)
         
         navigationItem.titleView = UIView()
         navigationItem.titleView?.addSubview(streakView)
@@ -313,20 +333,6 @@ class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
         present(vc, animated: true)
     }
     
-//    func weekDaysApperance() {
-//        dateComponents.day = -1
-//        for _ in 0...6 {
-//            if let date = calendar.date(byAdding: dateComponents, to: Date()) {
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "dd/MM"
-//                let formattedDate = dateFormatter.string(from: date)
-//                weekDays.append(formattedDate)
-//                dateComponents.day! -= 1
-//            }
-//        }
-//        print(weekDays)
-//    }
-    
     func notifications() {
         print("Notifications = \(UserSettings.notifications!)")
         if self.target ?? 10000 > self.steps {
@@ -345,8 +351,6 @@ class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
     func constraints() {
         weekView.translatesAutoresizingMaskIntoConstraints = false
         progressView.translatesAutoresizingMaskIntoConstraints = false
-        
-        print("Height - \(view.bounds.height)")
         
         if view.bounds.height == 667 {
             
@@ -407,6 +411,8 @@ class StepsController: UIViewController, UIScrollViewDelegate, WeekDayDelegate {
             
             stepsTargetLabel.centerXAnchor.constraint(equalTo: progressView.centerXAnchor),
             stepsTargetLabel.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor, constant: -8),
+            stepsTargetLabel.leadingAnchor.constraint(equalTo: progressView.leadingAnchor, constant: 40),
+            stepsTargetLabel.trailingAnchor.constraint(equalTo: progressView.trailingAnchor, constant: -40),
             
             weekView.topAnchor.constraint(equalTo: distandAndKcalView.bottomAnchor, constant: 32),
             weekView.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 24),
@@ -452,7 +458,6 @@ extension StepsController {
                 let dayNumArray = dateArray[0]
                 //let dayNameArray = dateArray[1]
                 
-                var hourArray: [String] = []
                 var ruHourArray: [String] = []
                 var usHourArray: [String] = []
                 
@@ -460,12 +465,6 @@ extension StepsController {
                     ruHourArray.append("\(i)")
                 }
                 
-                let currentTimeZone = TimeZone.current
-                let tz = TimeZone.abbreviationDictionary
-                print("allTZ = \(tz)")
-                print("timeZone ID = \(currentTimeZone.identifier)")
-                
-                let dateFormatter = DateFormatter()
                 let dateFormat = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)
                 print("date format = \(dateFormat ?? "Unknown")")
 
@@ -476,17 +475,14 @@ extension StepsController {
                     print("24")
                     
                 }
-                
-                for i in 0...11 {
+                usHourArray.append("12 am")
+                for i in 1...11 {
                     usHourArray.append("\(i) am")
                 }
-                
-                for i in 0...11 {
+                usHourArray.append("12 pm")
+                for i in 1...11 {
                     usHourArray.append("\(i) pm")
                 }
-                
-                print("US hours = \(usHourArray)")
-                
                 
                 var stepsHourly: [[Double]] = []
                 
@@ -503,28 +499,27 @@ extension StepsController {
                 
                 var summOfSteps = 0.0
                 
-                print("StepsHourly = \(stepsHourly[cellIndex])")
-                
                 for steps in stepsHourly[cellIndex] {
                     summOfSteps += steps
                 }
-                
-                print("summ of steps = \(summOfSteps)")
                 
                 var distant = (0.7 * Double(summOfSteps))/1000
                 var calories = summOfSteps/20
                 
                 if cellIndex == 6 {
-                    self.stepsLabel.text = "\(self.sumOfStepsToday)"
+                    self.stepsLabel.text = "\(Int(self.sumOfStepsToday))"
                     distant = (0.7 * Double(self.sumOfStepsToday))/1000
                     calories = Double(self.sumOfStepsToday/20)
-                    self.configurate(with: Double(self.target ?? 10000), progress: Double(self.sumOfStepsToday))
+                    self.configurate(with: Double(self.target ?? 10000), progress: self.sumOfStepsToday)
+                    print(self.sumOfStepsToday)
+                    print(cellIndex)
                     
                 } else {
                     self.stepsLabel.text = "\(Int(summOfSteps))"
+                    self.configurate(with: Double(self.target ?? 10000), progress: Double(summOfSteps))
                 }
                 
-                self.configurate(with: Double(self.target ?? 10000), progress: Double(summOfSteps))
+                
                 self.distantCountView.configure(with: "distant".uppercased(), andValue: "\((round(distant * 100) / 100)) km")
                 self.caloriesCountView.configure(with: "calories".uppercased(),
                                                   andValue: "\(Int(calories)) kcal")
@@ -538,12 +533,17 @@ extension StepsController {
                 let timeList = currentTime.split(separator: ":")
                 let hour = Int(timeList[0])!
                 
-                print("hour = \(hour)")
-                
                 if dateFormat == "h a" {
-                    if hour-8 >= 0 {
-                        for i in hour-8...hour {
-                            array.append(.init(type:usHourArray[i], count: Int(stepsHourly[cellIndex][i])))
+                    let usTimeList = currentTime.split(separator: " ")
+                    let usHour = String(timeList[0]) + " " + usTimeList[1]
+                    
+                    let dict = ["12 AM":0, "1 AM":1, "2 AM":2, "3 AM":3, "4 AM":4, "5 AM":5, "6 AM":6, "7 AM":7, "8 AM":8, "9 AM":9, "10 AM":10, "11 AM":11, "12 PM":12, "1 PM":13, "2 PM":14, "3 PM":15, "4 PM":16, "5 PM":17, "6 PM":18, "7 PM":19, "8 PM":20, "9 PM":21, "10 PM":22, "11 PM":23]
+                    
+                    
+                    
+                    if hour-8 <= 0 {
+                        for i in dict[usHour]!-8...dict[usHour]! {
+                            array.append(.init(type: usHourArray[i], count: Int(stepsHourly[cellIndex][i])))
                         }
                     } else {
                         for i in 0...7 {
@@ -561,15 +561,16 @@ extension StepsController {
                         }
                     }
                 }
+                 
                 
                 self.hourlyChart?.view.removeFromSuperview()
                 self.grafButton.removeFromSuperview()
-                self.hourlyChart = UIHostingController(rootView: HourlyHystogram(getArray: array))
+                self.hourlyChart = UIHostingController(rootView: HourlyHystogram(array: array))
                 self.addChild(self.hourlyChart!)
                 self.hourlyChart!.view.backgroundColor = .black
                 
                 self.hourlyChart!.view.translatesAutoresizingMaskIntoConstraints = false
-                self.hourlyChart!.view.layer.cornerRadius = 15
+                self.hourlyChart!.view.layer.cornerRadius = 10
                 self.hourlyChart!.view.backgroundColor = R.Colors.darkGray
                 self.middleView.addSubview(self.hourlyChart!.view)
                 self.middleView.addSubview(self.grafButton)
@@ -611,20 +612,21 @@ extension StepsController {
                 
                 dateArray.reverse()
                 
-                print("GETSTEPS \(stepsArray) GETDATA \(dateArray)")
+                //print("GETSTEPS \(stepsArray) GETDATA \(dateArray)")
                 
                 if stepsArray.count > 0 {
                     self!.steps = Int(stepsArray[0] )
-                    print(self!.steps)
+                    //print(self!.steps)
                     self!.dailySteps = stepsArray
                     self!.stepsLabel.text = "\(Int(stepsArray[0]))"
-                    self!.sumOfStepsToday = Int(stepsArray[0])
+                    self!.sumOfStepsToday = stepsArray[0]
                     let distant = (0.7 * stepsArray[0])/1000
                     let calories = Double(self!.sumOfStepsToday/20) //calories = stepsArray[0]/20
                     self!.distantCountView.configure(with: "distant".uppercased(), andValue: "\((round(distant * 100) / 100)) km")
                     self!.caloriesCountView.configure(with: "calories".uppercased(),
                                                       andValue: "\(Int(calories)) kcal")
                     self!.configurate(with: Double(self!.target ?? 10000), progress: stepsArray[0])
+                    print("stepsArray 0 = \(stepsArray[0])")
                     
                 }
                 if self!.target ?? 10000 > self!.steps {

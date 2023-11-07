@@ -17,9 +17,6 @@
 		B438FE312AE2480300688CAB /* StreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B438FE302AE2480300688CAB /* StreakView.swift */; };
 		B4410A0F2ADAE4D90029879F /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4410A0E2ADAE4D90029879F /* StatsView.swift */; };
 		B446B3912AB8BA410046BDD2 /* HourlyStepsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446B3902AB8BA410046BDD2 /* HourlyStepsCount.swift */; };
-		B446B3932AB9B13C0046BDD2 /* HourlyStepsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446B3922AB9B13C0046BDD2 /* HourlyStepsCollection.swift */; };
-		B446B3952AB9B7330046BDD2 /* HourlyStepsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446B3942AB9B7330046BDD2 /* HourlyStepsCell.swift */; };
-		B446B3972AB9CFFD0046BDD2 /* HourlyStepBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446B3962AB9CFFD0046BDD2 /* HourlyStepBar.swift */; };
 		B446B39D2ABBE5C30046BDD2 /* WeekCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446B39C2ABBE5C30046BDD2 /* WeekCollection.swift */; };
 		B446B39F2ABBEC090046BDD2 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B446B39E2ABBEC090046BDD2 /* WeekCell.swift */; };
 		B44EA9062A9F7EF3007AA1D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9052A9F7EF3007AA1D1 /* AppDelegate.swift */; };
@@ -36,23 +33,10 @@
 		B44EA9262AA10D3D007AA1D1 /* CountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9252AA10D3D007AA1D1 /* CountView.swift */; };
 		B44EA92A2AA11BF4007AA1D1 /* StepsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9292AA11BF4007AA1D1 /* StepsCount.swift */; };
 		B44EA9302AA160C6007AA1D1 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA92F2AA160C6007AA1D1 /* SettingsController.swift */; };
-		B44EA9342AA3A792007AA1D1 /* GrafficsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9332AA3A792007AA1D1 /* GrafficsController.swift */; };
-		B44EA9372AA3B0A4007AA1D1 /* BarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9362AA3B0A4007AA1D1 /* BarsView.swift */; };
-		B44EA9392AA3B155007AA1D1 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA9382AA3B155007AA1D1 /* BarView.swift */; };
-		B44EA93B2AA3B22C007AA1D1 /* DailyStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44EA93A2AA3B22C007AA1D1 /* DailyStepsView.swift */; };
 		B48A5FAF2AADA89300477D4F /* AchievementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FAE2AADA89300477D4F /* AchievementCell.swift */; };
 		B48A5FB12AADDC3100477D4F /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB02AADDC3100477D4F /* SectionHeaderView.swift */; };
 		B48A5FB32AAE218C00477D4F /* AchievementDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB22AAE218C00477D4F /* AchievementDescription.swift */; };
 		B48A5FB62AAF4AA400477D4F /* AllStepsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB52AAF4AA400477D4F /* AllStepsCount.swift */; };
-		B48A5FB82AB0BDBF00477D4F /* MonthlyGraf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB72AB0BDBF00477D4F /* MonthlyGraf.swift */; };
-		B48A5FBA2AB2FAE800477D4F /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FB92AB2FAE800477D4F /* ChartsView.swift */; };
-		B48A5FBC2AB3122100477D4F /* YAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FBB2AB3122100477D4F /* YAxisView.swift */; };
-		B48A5FBF2AB3198B00477D4F /* XAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FBE2AB3198B00477D4F /* XAxisView.swift */; };
-		B48A5FC12AB32CA600477D4F /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48A5FC02AB32CA600477D4F /* ChartView.swift */; };
-		B4929BD42AC66A6C00FBBEDB /* HourlyStepsBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4929BD32AC66A6C00FBBEDB /* HourlyStepsBackground.swift */; };
-		B4929BD62AC66BE600FBBEDB /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4929BD52AC66BE600FBBEDB /* CustomLayout.swift */; };
-		B4929BD82AC6816D00FBBEDB /* SegmentedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4929BD72AC6816D00FBBEDB /* SegmentedCollection.swift */; };
-		B4929BDA2AC685C900FBBEDB /* SegmentedCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4929BD92AC685C900FBBEDB /* SegmentedCollectionCell.swift */; };
 		B4AB71752ADB81630042587C /* FloorsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB71742ADB81630042587C /* FloorsCount.swift */; };
 		B4BD71512AC03C3600BFD690 /* DailyHourSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BD71502AC03C3600BFD690 /* DailyHourSteps.swift */; };
 		B4C4A99B2AA8FB05006FAB89 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */; };
@@ -71,9 +55,6 @@
 		B438FE302AE2480300688CAB /* StreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakView.swift; sourceTree = "<group>"; };
 		B4410A0E2ADAE4D90029879F /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		B446B3902AB8BA410046BDD2 /* HourlyStepsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyStepsCount.swift; sourceTree = "<group>"; };
-		B446B3922AB9B13C0046BDD2 /* HourlyStepsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyStepsCollection.swift; sourceTree = "<group>"; };
-		B446B3942AB9B7330046BDD2 /* HourlyStepsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyStepsCell.swift; sourceTree = "<group>"; };
-		B446B3962AB9CFFD0046BDD2 /* HourlyStepBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyStepBar.swift; sourceTree = "<group>"; };
 		B446B39C2ABBE5C30046BDD2 /* WeekCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCollection.swift; sourceTree = "<group>"; };
 		B446B39E2ABBEC090046BDD2 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
 		B44EA9022A9F7EF3007AA1D1 /* StepControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StepControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,23 +74,10 @@
 		B44EA9292AA11BF4007AA1D1 /* StepsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsCount.swift; sourceTree = "<group>"; };
 		B44EA92B2AA12AF9007AA1D1 /* StepControl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StepControl.entitlements; sourceTree = "<group>"; };
 		B44EA92F2AA160C6007AA1D1 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
-		B44EA9332AA3A792007AA1D1 /* GrafficsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrafficsController.swift; sourceTree = "<group>"; };
-		B44EA9362AA3B0A4007AA1D1 /* BarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarsView.swift; sourceTree = "<group>"; };
-		B44EA9382AA3B155007AA1D1 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
-		B44EA93A2AA3B22C007AA1D1 /* DailyStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStepsView.swift; sourceTree = "<group>"; };
 		B48A5FAE2AADA89300477D4F /* AchievementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCell.swift; sourceTree = "<group>"; };
 		B48A5FB02AADDC3100477D4F /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		B48A5FB22AAE218C00477D4F /* AchievementDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDescription.swift; sourceTree = "<group>"; };
 		B48A5FB52AAF4AA400477D4F /* AllStepsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStepsCount.swift; sourceTree = "<group>"; };
-		B48A5FB72AB0BDBF00477D4F /* MonthlyGraf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyGraf.swift; sourceTree = "<group>"; };
-		B48A5FB92AB2FAE800477D4F /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
-		B48A5FBB2AB3122100477D4F /* YAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisView.swift; sourceTree = "<group>"; };
-		B48A5FBE2AB3198B00477D4F /* XAxisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAxisView.swift; sourceTree = "<group>"; };
-		B48A5FC02AB32CA600477D4F /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
-		B4929BD32AC66A6C00FBBEDB /* HourlyStepsBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyStepsBackground.swift; sourceTree = "<group>"; };
-		B4929BD52AC66BE600FBBEDB /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
-		B4929BD72AC6816D00FBBEDB /* SegmentedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCollection.swift; sourceTree = "<group>"; };
-		B4929BD92AC685C900FBBEDB /* SegmentedCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCollectionCell.swift; sourceTree = "<group>"; };
 		B4AB71742ADB81630042587C /* FloorsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloorsCount.swift; sourceTree = "<group>"; };
 		B4BD71502AC03C3600BFD690 /* DailyHourSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyHourSteps.swift; sourceTree = "<group>"; };
 		B4C4A99A2AA8FB05006FAB89 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -167,20 +135,6 @@
 			path = Statistics;
 			sourceTree = "<group>";
 		};
-		B446B39A2ABBE4D30046BDD2 /* HourlyStepsView */ = {
-			isa = PBXGroup;
-			children = (
-				B4929BD72AC6816D00FBBEDB /* SegmentedCollection.swift */,
-				B4929BD92AC685C900FBBEDB /* SegmentedCollectionCell.swift */,
-				B446B3922AB9B13C0046BDD2 /* HourlyStepsCollection.swift */,
-				B446B3942AB9B7330046BDD2 /* HourlyStepsCell.swift */,
-				B446B3962AB9CFFD0046BDD2 /* HourlyStepBar.swift */,
-				B4929BD32AC66A6C00FBBEDB /* HourlyStepsBackground.swift */,
-				B4929BD52AC66BE600FBBEDB /* CustomLayout.swift */,
-			);
-			path = HourlyStepsView;
-			sourceTree = "<group>";
-		};
 		B44EA8F92A9F7EF3007AA1D1 = {
 			isa = PBXGroup;
 			children = (
@@ -200,9 +154,6 @@
 		B44EA9042A9F7EF3007AA1D1 /* StepControl */ = {
 			isa = PBXGroup;
 			children = (
-				B44EA9352AA3B073007AA1D1 /* DailyStepsView */,
-				B446B39A2ABBE4D30046BDD2 /* HourlyStepsView */,
-				B48A5FBD2AB312BC00477D4F /* MonthlyStepsView */,
 				B4C4A9A12AACF59C006FAB89 /* Views */,
 				B4C4A99E2AAB9A36006FAB89 /* Controllers */,
 				B44EA92E2AA14D70007AA1D1 /* WeekView */,
@@ -253,16 +204,6 @@
 			path = WeekView;
 			sourceTree = "<group>";
 		};
-		B44EA9352AA3B073007AA1D1 /* DailyStepsView */ = {
-			isa = PBXGroup;
-			children = (
-				B44EA9362AA3B0A4007AA1D1 /* BarsView.swift */,
-				B44EA9382AA3B155007AA1D1 /* BarView.swift */,
-				B44EA93A2AA3B22C007AA1D1 /* DailyStepsView.swift */,
-			);
-			path = DailyStepsView;
-			sourceTree = "<group>";
-		};
 		B48A5FB42AAE352D00477D4F /* Achievements */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,18 +214,6 @@
 			path = Achievements;
 			sourceTree = "<group>";
 		};
-		B48A5FBD2AB312BC00477D4F /* MonthlyStepsView */ = {
-			isa = PBXGroup;
-			children = (
-				B48A5FB72AB0BDBF00477D4F /* MonthlyGraf.swift */,
-				B48A5FB92AB2FAE800477D4F /* ChartsView.swift */,
-				B48A5FBB2AB3122100477D4F /* YAxisView.swift */,
-				B48A5FBE2AB3198B00477D4F /* XAxisView.swift */,
-				B48A5FC02AB32CA600477D4F /* ChartView.swift */,
-			);
-			path = MonthlyStepsView;
-			sourceTree = "<group>";
-		};
 		B4C4A99E2AAB9A36006FAB89 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,7 +222,6 @@
 				B40CCABB2AD965BC0027D455 /* StepsController */,
 				B42FA9AD2AD42BFD009DCFD8 /* Statistics */,
 				B48A5FB42AAE352D00477D4F /* Achievements */,
-				B44EA9332AA3A792007AA1D1 /* GrafficsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -381,52 +309,36 @@
 				B44EA9302AA160C6007AA1D1 /* SettingsController.swift in Sources */,
 				B44EA91A2AA08251007AA1D1 /* WeekView.swift in Sources */,
 				B4AB71752ADB81630042587C /* FloorsCount.swift in Sources */,
-				B446B3972AB9CFFD0046BDD2 /* HourlyStepBar.swift in Sources */,
 				B4BD71512AC03C3600BFD690 /* DailyHourSteps.swift in Sources */,
 				B44EA90A2A9F7EF3007AA1D1 /* StepsController.swift in Sources */,
 				B446B3912AB8BA410046BDD2 /* HourlyStepsCount.swift in Sources */,
-				B48A5FC12AB32CA600477D4F /* ChartView.swift in Sources */,
 				B44EA9262AA10D3D007AA1D1 /* CountView.swift in Sources */,
 				B42FA9AC2AD42BEA009DCFD8 /* DailyHystogram.swift in Sources */,
 				B40CCABE2AD965FC0027D455 /* DayStepsHystogram.swift in Sources */,
 				B48A5FB12AADDC3100477D4F /* SectionHeaderView.swift in Sources */,
-				B48A5FBF2AB3198B00477D4F /* XAxisView.swift in Sources */,
 				B44EA91C2AA08262007AA1D1 /* WeekdayView.swift in Sources */,
 				B44EA9242AA0E134007AA1D1 /* ProgressView.swift in Sources */,
-				B4929BD42AC66A6C00FBBEDB /* HourlyStepsBackground.swift in Sources */,
 				B44EA92A2AA11BF4007AA1D1 /* StepsCount.swift in Sources */,
-				B44EA9392AA3B155007AA1D1 /* BarView.swift in Sources */,
 				B40CCABA2AD963550027D455 /* DayStepsController.swift in Sources */,
 				B44EA9202AA093AF007AA1D1 /* Colors.swift in Sources */,
 				B4C4A9A02AACF56B006FAB89 /* AchievementsController.swift in Sources */,
 				B446B39F2ABBEC090046BDD2 /* WeekCell.swift in Sources */,
-				B4929BD62AC66BE600FBBEDB /* CustomLayout.swift in Sources */,
 				B42FA9AA2AD42BC8009DCFD8 /* StatisticsController.swift in Sources */,
 				B44EA9222AA093B6007AA1D1 /* R.swift in Sources */,
-				B48A5FBC2AB3122100477D4F /* YAxisView.swift in Sources */,
 				B4F321802AD5B22D00CEE9AC /* HourlyHystogram.swift in Sources */,
 				B4410A0F2ADAE4D90029879F /* StatsView.swift in Sources */,
-				B4929BD82AC6816D00FBBEDB /* SegmentedCollection.swift in Sources */,
 				B41F9DD92ADC5C2A00C05849 /* UIImageExt.swift in Sources */,
 				B44EA9062A9F7EF3007AA1D1 /* AppDelegate.swift in Sources */,
 				B438FE312AE2480300688CAB /* StreakView.swift in Sources */,
 				B48A5FAF2AADA89300477D4F /* AchievementCell.swift in Sources */,
-				B44EA93B2AA3B22C007AA1D1 /* DailyStepsView.swift in Sources */,
 				B48A5FB32AAE218C00477D4F /* AchievementDescription.swift in Sources */,
-				B48A5FBA2AB2FAE800477D4F /* ChartsView.swift in Sources */,
 				B41F9DD72ADC2AA300C05849 /* AverageStepsView.swift in Sources */,
 				B4C4A99B2AA8FB05006FAB89 /* UserSettings.swift in Sources */,
-				B44EA9372AA3B0A4007AA1D1 /* BarsView.swift in Sources */,
-				B4929BDA2AC685C900FBBEDB /* SegmentedCollectionCell.swift in Sources */,
-				B446B3932AB9B13C0046BDD2 /* HourlyStepsCollection.swift in Sources */,
 				B44EA9082A9F7EF3007AA1D1 /* SceneDelegate.swift in Sources */,
 				B42FA9AF2AD4613B009DCFD8 /* MonthlyChart.swift in Sources */,
-				B44EA9342AA3A792007AA1D1 /* GrafficsController.swift in Sources */,
 				B48A5FB62AAF4AA400477D4F /* AllStepsCount.swift in Sources */,
-				B446B3952AB9B7330046BDD2 /* HourlyStepsCell.swift in Sources */,
 				B446B39D2ABBE5C30046BDD2 /* WeekCollection.swift in Sources */,
 				B44EA91E2AA082AE007AA1D1 /* Ext.swift in Sources */,
-				B48A5FB82AB0BDBF00477D4F /* MonthlyGraf.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +483,7 @@
 				DEVELOPMENT_TEAM = N4AY2827DP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StepControl/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Разрешить приложению записывать данные о количестве шагов.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Разрешите приложению доступ к вашим данным о количестве шагов.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Разрешить приложению записывать данные о количестве шагов.";
@@ -606,6 +519,7 @@
 				DEVELOPMENT_TEAM = N4AY2827DP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StepControl/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Разрешить приложению записывать данные о количестве шагов.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Разрешите приложению доступ к вашим данным о количестве шагов.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Разрешить приложению записывать данные о количестве шагов.";

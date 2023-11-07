@@ -22,9 +22,7 @@ final class ProgressView: UIView {
         } else {
             radius = circleFrame / 5.9
         }
-        
-        print("Radius - \(radius!)")
-        print(UIScreen.main.bounds.height)
+        //cuprint(UIScreen.main.bounds.height)
         let center: CGPoint!
         
         if UIScreen.main.bounds.height == 667 {

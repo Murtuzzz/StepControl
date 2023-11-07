@@ -114,13 +114,11 @@ final class AchievementDescription: UIViewController {
         titleLabel.text = title
         subtitle.text = description
         var imageList = image.split(separator: ".")
-        print(imageList)
         if isActive == true {
             if imageList.contains("gif") {
                 
                 imageList.reverse()
                 let img = String(imageList[0] + imageList[1])
-                print(img)
                 guard let asset = NSDataAsset(name: img) else {return}
                 
                 achievementsImageView.removeFromSuperview()
@@ -158,6 +156,19 @@ final class AchievementDescription: UIViewController {
     }
     
     func constraints() {
+        
+        if view.bounds.height != 667 {
+            container.removeConstraint(container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/2.1))
+            
+            NSLayoutConstraint.activate([
+                container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/2.1)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                container.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height/2.4)
+            ])
+        }
+        
         NSLayoutConstraint.activate([
             
             titleLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor),

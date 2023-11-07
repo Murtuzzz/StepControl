@@ -24,7 +24,7 @@ class AllStepsCount: UIViewController {
                 print(error)
             } else if success {
                 self.getSteps(completion: { steps in
-                    print("AllSteps: \(steps)")
+                    //print("AllSteps: \(steps)")
                 })
             }
         }
@@ -87,7 +87,6 @@ class AllStepsCount: UIViewController {
         let calendar = Calendar.current
         let now = Date()
         let startOfYear = calendar.date(from: calendar.dateComponents([.year], from: now))!
-        print("Start of Year = \(startOfYear)")
         
         let predicate = HKQuery.predicateForSamples(withStart: startOfYear, end: now, options: .strictStartDate)
         

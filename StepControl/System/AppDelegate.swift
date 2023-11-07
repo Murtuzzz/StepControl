@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             content.body = body
             content.sound = UNNotificationSound.default
             
-            let times = [[8, 0], [13, 0], [20, 0]] // Утро, полдень, вечер
+            let times = [[13, 0], [17, 0]]
             for time in times {
                 var dateComponents = DateComponents()
                 dateComponents.hour = time[0]

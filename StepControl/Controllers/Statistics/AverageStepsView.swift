@@ -93,13 +93,13 @@ final class AverageStepsView: UIView {
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: -88),
+            countLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -8),
             countLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor, constant: 8),
             countLabel.heightAnchor.constraint(equalToConstant: 64),
             countLabel.widthAnchor.constraint(equalToConstant: 150),
             
             titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -64),
+            titleLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -128),
             titleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
             
             imageView.topAnchor.constraint(equalTo: container.topAnchor, constant: 8),

@@ -82,7 +82,6 @@ class DayStepsController: UIViewController {
         if cellIndex != 6 {
             self.titleLabel.text = "\(dateName[cellIndex]), \(dateNum[cellIndex])"
         }
-        print("cellIndex = \(cellIndex)")
         
     }
     
@@ -104,15 +103,25 @@ class DayStepsController: UIViewController {
                 let dayNumArray = dateArray[0]
                 //let dayNameArray = dateArray[1]
                 
-                var hourArray: [String] = []
+                var ruHourArray: [String] = []
+                var usHourArray: [String] = []
                 
                 for i in 0...23 {
-                    hourArray.append("\(i)")
+                    ruHourArray.append("\(i)")
+                }
+                
+                //let dict = ["12 AM":0, "1 AM":1, "2 AM":2, "3 AM":3, "4 AM":4, "5 AM":5, "6 AM":6, "7 AM":7, "8 AM":8, "9 AM":9, "10 AM":10, "11 AM":11, "12 PM":12, "1 PM":13, "2 PM":14, "3 PM":15, "4 PM":16, "5 PM":17, "6 PM":18, "7 PM":19, "8 PM":20, "9 PM":21, "10 PM":22, "11 PM":23]
+                
+                usHourArray.append("12 am")
+                for i in 1...11 {
+                    usHourArray.append("\(i) am")
+                }
+                usHourArray.append("12 pm")
+                for i in 1...11 {
+                    usHourArray.append("\(i) pm")
                 }
                 
                 var stepsHourly: [[Double]] = []
-                
-                //print("daily steps Array = \(self!.todaySteps)")
                 
                 for i in 0...6 {
                     stepsHourly.append(stepsPerHourPerDay[dayNumArray[i]]!)
@@ -135,10 +144,18 @@ class DayStepsController: UIViewController {
                 //0-8 9 10 11 12 13 14 15 16 17 18 19 20-23
                 
                 print("hour = \(hour)")
+                let dateFormat = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)
+                print("date format = \(dateFormat ?? "Unknown")")
                 
                 //stepsApperance
-                for i in 0...23 {
-                    array.append(.init(type: hourArray[i], count: Int(stepsHourly[self.cellIndex][i])))
+                if dateFormat == "h a" {
+                    for i in 0...23 {
+                        array.append(.init(type: usHourArray[i], count: Int(stepsHourly[self.cellIndex][i])))
+                    }
+                } else {
+                    for i in 0...23 {
+                        array.append(.init(type: ruHourArray[i], count: Int(stepsHourly[self.cellIndex][i])))
+                    }
                 }
                 
                 let dayChart = UIHostingController(rootView: DayStepsHystogram(array: array))
@@ -187,8 +204,6 @@ class DayStepsController: UIViewController {
         FloorsCount.shared.getFloors { [weak self] floors,err  in
             DispatchQueue.main.sync {
                 guard let self = self else {return}
-                
-                print("floors = \(floors)")
                 
                 let floorsView = StatsView(icon: "figure.stairs", title: "Floors",value: Int(floors[self.cellIndex+1])) //Int(floors[self.cellIndex])
                 

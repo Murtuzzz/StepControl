@@ -68,7 +68,7 @@ final class SettingsController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .line
         textField.textAlignment = .left
-        textField.text = UserSettings.target ?? "5000"
+        textField.text = UserSettings.target ?? "10000"
         textField.keyboardType = .numberPad
         textField.placeholder = ""
         textField.textColor = .black
@@ -244,9 +244,13 @@ final class SettingsController: UIViewController {
     
     @objc
     private func saveButtonAction() {
-        showAlert(title: "Success!", message: "Target saved")
-        UserSettings.target = targetTextField.text
-        target(UserSettings.target ?? "9000")
+        if let number = Int(targetTextField.text!) {
+            UserSettings.target = targetTextField.text
+            target(UserSettings.target ?? "9000")
+            showAlert(title: "Success!", message: "Target saved")
+        } else {
+            showAlert(title: "Oops", message: "Incorrect data")
+        }
         print("saveButtonPushed")
     }
     

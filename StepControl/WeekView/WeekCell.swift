@@ -104,7 +104,6 @@ final class WeekCell: UICollectionViewCell {
     }
     
     func getCellIndex(index: Int) {
-        print("GETINDEX = \(index)")
         delegate?.didTapCell(index: index)
     }
     
@@ -137,7 +136,6 @@ final class WeekCell: UICollectionViewCell {
                     stepsArray.append(steps)
                     dateArray.append(dateFormatter.string(from:date))
                     stepsDict[(dateFormatter.string(from:date))] = steps
-                    //print(stepsDict)
                     
                     if dateArray.contains(weekDay) {
                         if index < stepsArray.count-1 {

@@ -40,6 +40,7 @@ final class StatsView: UIView {
     private let countLabel: UILabel = {
         let label = UILabel()
         label.text = "32"
+        label.textColor = .white
         label.backgroundColor = R.Colors.darkBlue
         label.layer.cornerRadius = 15
         label.layer.masksToBounds = true

@@ -79,14 +79,11 @@ struct MonthlyChart: View {
         var barIndex = 0
         if location.x < 79 {
             barIndex = Int(Int(location.x) / (300 / array.count))
-            print("\(location.x) < 100")
         } else {
             barIndex = Int(Int(location.x) / (300 / array.count)) + 1
-            print("\(location.x) > 100")
         }
         if barIndex >= 0 && barIndex < array.count {
             selectedBar = array[barIndex]
-            print(location.x)
             print("Вы выбрали бар: \(selectedBar?.type) bar index = \(barIndex)")
             
         } else {

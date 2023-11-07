@@ -81,7 +81,7 @@ class StatisticsController: UIViewController {
         
         segmentedControl.addTarget(self, action: #selector(segmentedControlAction), for: .valueChanged)
         
-        FloorsCount.shared.getAuthorization()
+        //FloorsCount.shared.getAuthorization()
        
         constraints()
         statsViewsApperance()
@@ -119,9 +119,12 @@ class StatisticsController: UIViewController {
                 
                 let numberOfDays = self.getNumberOfDaysInCurrentMonth()
                 
-                let avgStepsView = AverageStepsView(icon: UIImage.person, title: "Average steps per month", value: Int(stepsArray[0])!/(numberOfDays ?? 0))
+                let avgStepsView = AverageStepsView(icon: UIImage.person, title: "Average steps per month", value: (Int(stepsArray[0]) ?? 0)/(numberOfDays ?? 0))
                 
                 print(stepsArray)
+                print(numberOfDays)
+                print(Int(stepsArray[0]))
+                
                 
                 self.middleView.addSubview(avgStepsView)
                 
@@ -139,7 +142,7 @@ class StatisticsController: UIViewController {
                     DispatchQueue.main.sync {
                         guard let self = self else {return}
                         
-                        let floorsView = AverageStepsView(icon: UIImage.stairs, title: "Floors passed in a month", value: Int(steps[5]))
+                        let floorsView = AverageStepsView(icon: UIImage.stairs, title: "Floors passed per month", value: Int(steps[5]))
                         
                         self.middleView.addSubview(floorsView)
                         floorsView.translatesAutoresizingMaskIntoConstraints = false
