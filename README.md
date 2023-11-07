@@ -1,4 +1,4 @@
-# WeatherApp
+# StepControl
 
 AppStore: https://apps.apple.com/ru/app/stepcontrol/id6470368864
 
